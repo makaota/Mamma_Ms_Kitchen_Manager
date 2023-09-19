@@ -23,7 +23,7 @@
             android:paddingStart="@dimen/toolbar_title_paddingStart"
             android:paddingEnd="0dp"
             android:text="@string/title_my_order_details"
-            android:textColor="@color/white"
+            android:textColor="@color/colorPrimary_dark"
             android:textSize="@dimen/toolbar_title_text_size"
             android:textStyle="bold" />
 
@@ -343,7 +343,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@color/white"
                 android:orientation="vertical">
 
@@ -363,7 +363,7 @@
                     android:paddingTop="@dimen/btn_padding"
                     android:paddingBottom="@dimen/btn_padding"
                     android:text="@string/btn_lbl_order_received"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/colorPrimaryText"
                     android:textSize="@dimen/btn_textSize"
                     />
 
@@ -407,7 +407,7 @@
                     android:paddingTop="@dimen/btn_padding"
                     android:paddingBottom="@dimen/btn_padding"
                     android:text="@string/btn_lbl_send_order_number"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/colorPrimaryText"
                     android:textSize="@dimen/btn_textSize" />
 
                 <com.makaota.mammamskitchenmanager.utils.RAMButton
@@ -426,7 +426,7 @@
                     android:paddingTop="@dimen/btn_padding"
                     android:paddingBottom="@dimen/btn_padding"
                     android:text="@string/btn_lbl_ready_for_collection"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/colorPrimaryText"
                     android:textSize="@dimen/btn_textSize" />
 
                 <com.makaota.mammamskitchenmanager.utils.RAMButton
@@ -445,7 +445,7 @@
                     android:paddingTop="@dimen/btn_padding"
                     android:paddingBottom="@dimen/btn_padding"
                     android:text="@string/btn_lbl_order_delivered"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/colorPrimaryText"
                     android:textSize="@dimen/btn_textSize" />
 
 

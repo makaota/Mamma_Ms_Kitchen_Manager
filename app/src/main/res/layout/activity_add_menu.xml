@@ -23,7 +23,7 @@
             android:paddingStart="@dimen/toolbar_title_paddingStart"
             android:paddingEnd="0dp"
             android:text="@string/title_add_product"
-            android:textColor="@color/white"
+            android:textColor="@color/colorPrimaryText"
             android:textSize="@dimen/toolbar_title_text_size"
             android:textStyle="bold" />
 
@@ -73,6 +73,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_product_title"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:boxStrokeColor="@color/mammaColorGoldTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -97,6 +98,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_product_price"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:boxStrokeColor="@color/mammaColorGoldTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -122,6 +124,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_product_description"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:boxStrokeColor="@color/mammaColorGoldTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -147,6 +150,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_product_quantity"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:boxStrokeColor="@color/mammaColorGoldTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -183,7 +187,7 @@
                 android:paddingTop="@dimen/btn_padding"
                 android:paddingBottom="@dimen/btn_padding"
                 android:text="@string/btn_lbl_submit"
-                android:textColor="@android:color/white"
+                android:textColor="@color/colorPrimaryText"
                 android:textSize="@dimen/btn_textSize"
                 app:layout_constraintBottom_toTopOf="@id/btn_update"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -206,7 +210,7 @@
                 android:paddingTop="@dimen/btn_padding"
                 android:paddingBottom="@dimen/btn_padding"
                 android:text="@string/btn_lbl_save"
-                android:textColor="@android:color/white"
+                android:textColor="@color/colorPrimaryText"
                 android:textSize="@dimen/btn_textSize"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

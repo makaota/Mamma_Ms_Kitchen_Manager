@@ -42,6 +42,8 @@ class DashboardActivity  : BaseActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+     //   navView.itemIconTintList = null
     }
 
     override fun onBackPressed() {

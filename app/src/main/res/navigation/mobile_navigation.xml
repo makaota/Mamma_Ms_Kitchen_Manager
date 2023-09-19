@@ -7,18 +7,18 @@
 
     <fragment
         android:id="@+id/navigation_manage_menu"
-        android:name="com.makaota.mammamskitchenmanager.ui.fragments.ManageOrdersFragment"
+        android:name="com.makaota.mammamskitchenmanager.ui.fragments.ManageMenuFragment"
         android:label="@string/title_manage_menu"
         tools:layout="@layout/fragment_manage_menu" />
 
     <fragment
         android:id="@+id/navigation_manage_orders"
-        android:name="com.makaota.mammamskitchenmanager.ui.fragments.ManageMenuFragment"
+        android:name="com.makaota.mammamskitchenmanager.ui.fragments.ManageOrdersFragment"
         android:label="@string/title_manage_orders"
         tools:layout="@layout/fragment_manage_orders" />
 
     <fragment
-        android:id="@+id/navigation_sold_product"
+        android:id="@+id/navigation_sold_products"
         android:name="com.makaota.mammamskitchenmanager.ui.fragments.SoldProductsFragment"
         android:label="@string/title_sold_products"
         tools:layout="@layout/fragment_sold_products" />
