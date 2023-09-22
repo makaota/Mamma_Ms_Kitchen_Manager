@@ -85,4 +85,7 @@ dependencies {
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.6.2")
     implementation("com.squareup.retrofit2:converter-gson:2.6.0")
+
+    // Swipe Refresh Layout
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 }

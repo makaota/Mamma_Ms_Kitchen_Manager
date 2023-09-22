@@ -8,15 +8,18 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.makaota.mammamskitchenmanager.R
 import com.makaota.mammamskitchenmanager.databinding.FragmentSoldProductsBinding
 import com.makaota.mammamskitchenmanager.firestore.FirestoreClass
 import com.makaota.mammamskitchenmanager.models.SoldProduct
 import com.makaota.mammamskitchenmanager.ui.adapters.SoldProductsListAdapter
+import com.shashank.sony.fancytoastlib.FancyToast
 
 class SoldProductsFragment : BaseFragment() {
 
     private var _binding: FragmentSoldProductsBinding? = null
+    private lateinit var soldProductsSwipeRefreshLayout: SwipeRefreshLayout
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -30,7 +33,8 @@ class SoldProductsFragment : BaseFragment() {
 
         _binding = FragmentSoldProductsBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
+        soldProductsSwipeRefreshLayout = root.findViewById(R.id.sold_products_swipe_refresh_layout)
+        refreshPage()
         return root
     }
 
@@ -44,6 +48,23 @@ class SoldProductsFragment : BaseFragment() {
         super.onResume()
 
         getSoldProductsList()
+    }
+
+    private fun refreshPage(){
+
+        soldProductsSwipeRefreshLayout.setOnRefreshListener {
+
+            getSoldProductsList() //Reload order List Items
+
+            FancyToast.makeText(requireContext(),
+                "Orders Refreshed",
+                FancyToast.LENGTH_SHORT,
+                FancyToast.SUCCESS,
+                true).show()
+
+            _binding!!.soldProductsSwipeRefreshLayout.isRefreshing = false
+
+        }
     }
 
     // Create a function to get the list of sold products.

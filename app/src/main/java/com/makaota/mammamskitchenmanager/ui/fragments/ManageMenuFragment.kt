@@ -14,16 +14,19 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.makaota.mammamskitchenmanager.R
 import com.makaota.mammamskitchenmanager.databinding.FragmentManageMenuBinding
 import com.makaota.mammamskitchenmanager.firestore.FirestoreClass
 import com.makaota.mammamskitchenmanager.models.Product
 import com.makaota.mammamskitchenmanager.ui.activities.AddMenuActivity
 import com.makaota.mammamskitchenmanager.ui.adapters.MyProductListAdapter
+import com.shashank.sony.fancytoastlib.FancyToast
 
 class ManageMenuFragment : BaseFragment() {
 
     private var _binding: FragmentManageMenuBinding? = null
+    private lateinit var menuSwipeRefreshLayout: SwipeRefreshLayout
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -58,6 +61,8 @@ class ManageMenuFragment : BaseFragment() {
 
         _binding = FragmentManageMenuBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        menuSwipeRefreshLayout = root.findViewById(R.id.menu_swipe_refresh_layout)
+        refreshPage()
         return root
     }
 
@@ -72,6 +77,22 @@ class ManageMenuFragment : BaseFragment() {
         _binding = null
     }
 
+
+    private fun refreshPage() {
+
+        menuSwipeRefreshLayout.setOnRefreshListener {
+            getProductListFromFireStore() // Reload Menu Items
+            FancyToast.makeText(
+                requireContext(),
+                "Menu Refreshed",
+                FancyToast.LENGTH_SHORT,
+                FancyToast.SUCCESS,
+                true
+            ).show()
+
+            _binding!!.menuSwipeRefreshLayout.isRefreshing = false
+        }
+    }
 
     /**
      * A function to get the successful product list from cloud firestore.
