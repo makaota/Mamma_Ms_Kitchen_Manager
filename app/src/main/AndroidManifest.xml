@@ -16,6 +16,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MammaMsKitchenManager"
         tools:targetApi="31">
+        <service
+            android:name=".utils.FirebaseService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
         <activity
             android:name=".ui.activities.BaseActivity"
             android:exported="false" />

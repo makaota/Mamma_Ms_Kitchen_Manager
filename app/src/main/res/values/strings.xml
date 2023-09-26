@@ -170,7 +170,7 @@
 
     <string name="title_my_order_details">MY ORDER DETAILS</string>
     <string name="order_details_lbl">Order Details</string>
-    <string name="user_details_lbl">User Details</string>
+    <string name="user_details_lbl">Customer Details</string>
     <string name="order_details_lbl_order_id">Order ID</string>
     <string name="order_details_lbl_order_date">Order Date</string>
     <string name="order_details_lbl_order_status">Order Status</string>

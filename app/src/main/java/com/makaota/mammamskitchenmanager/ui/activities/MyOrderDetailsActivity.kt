@@ -445,6 +445,21 @@ class MyOrderDetailsActivity : BaseActivity(), View.OnClickListener {
         binding.rvMyOrderItemsList.adapter = cartListAdapter
 
 
+        if (myOrderDetails.address.type == ""){
+            binding.tvSelectedAddress.text = "Customer to Pickup"
+            binding.llCheckoutAddressDetails.visibility = View.GONE
+        }
+        else{
+            binding.tvCheckoutAddressType.text = myOrderDetails.address.type
+            binding.tvCheckoutFullName.text = myOrderDetails.address.name
+            binding.tvCheckoutAddress.text = myOrderDetails.address.address
+            binding.tvCheckoutAdditionalNote.text = myOrderDetails.address.additionalNote
+            binding.tvCheckoutOtherDetails.text = myOrderDetails.address.otherDetails
+            binding.tvCheckoutMobileNumber.text = myOrderDetails.address.mobileNumber
+        }
+
+
+
         binding.tvMyOrderDetailsFullName.text = myOrderDetails.userName
 
         binding.tvMyOrderDetailsMobileNumber.text = myOrderDetails.userMobile
