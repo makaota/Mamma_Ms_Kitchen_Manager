@@ -17,6 +17,7 @@ import com.makaota.mammamskitchenmanager.models.SoldProduct
 import com.makaota.mammamskitchenmanager.models.UserManager
 import com.makaota.mammamskitchenmanager.ui.activities.AddMenuActivity
 import com.makaota.mammamskitchenmanager.ui.activities.LoginActivity
+import com.makaota.mammamskitchenmanager.ui.activities.MyOrderDetailsActivity
 import com.makaota.mammamskitchenmanager.ui.activities.ProductDetailsActivity
 import com.makaota.mammamskitchenmanager.ui.activities.RegisterActivity
 import com.makaota.mammamskitchenmanager.ui.activities.SettingsActivity
@@ -477,6 +478,33 @@ class FirestoreClass {
             }
     }
     // END
+
+    fun addSoldProducts(activity: MyOrderDetailsActivity, orderDetails: Order){
+
+
+        // Collection name address.
+        mFirestore.collection(Constants.SOLD_PRODUCTS)
+            .document()
+            // Here the userInfo are Field and the SetOption is set to merge. It is for if we wants to merge
+            .set(orderDetails, SetOptions.merge())
+            .addOnSuccessListener {
+
+                // Notify the success result to the base class.
+                // START
+                // Here call a function of base activity for transferring the result to it.
+                activity.addSoldProductsSuccess()
+                // END
+            }
+            .addOnFailureListener { e ->
+                activity.hideProgressDialog()
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error while adding the sold products.",
+                    e
+                )
+            }
+
+    }
 
     // Create a function to get the list of sold products.
     // START

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.makaota.mammamskitchenmanager.databinding.ItemListLayoutBinding
+import com.makaota.mammamskitchenmanager.models.CartItem
 import com.makaota.mammamskitchenmanager.models.SoldProduct
 import com.makaota.mammamskitchenmanager.ui.activities.SoldProductsDetailsActivity
 import com.makaota.mammamskitchenmanager.utils.Constants
@@ -54,7 +55,7 @@ open class SoldProductsListAdapter(
                 GlideLoader(context).loadProductPicture(model.image, binding.ivItemImage)
 
                 binding.tvItemName.text = model.title
-                binding.tvItemPrice.text = "R${model.price}"
+                binding.tvItemPrice.text = "R${model.total_amount}"
                 binding.ibDeleteProduct.visibility = View.GONE
 
                 holder.itemView.setOnClickListener {

@@ -14,6 +14,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.Gson
 import com.makaota.mammamskitchenmanager.R
 import com.makaota.mammamskitchenmanager.databinding.ActivityMyOrderDetailsBinding
+import com.makaota.mammamskitchenmanager.firestore.FirestoreClass
 import com.makaota.mammamskitchenmanager.models.NotificationData
 import com.makaota.mammamskitchenmanager.models.Order
 import com.makaota.mammamskitchenmanager.models.PushNotification
@@ -21,6 +22,7 @@ import com.makaota.mammamskitchenmanager.models.User
 import com.makaota.mammamskitchenmanager.ui.adapters.CartItemsListAdapter
 import com.makaota.mammamskitchenmanager.utils.Constants
 import com.makaota.mammamskitchenmanager.utils.RetrofitInstance
+import com.shashank.sony.fancytoastlib.FancyToast
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -229,7 +231,8 @@ class MyOrderDetailsActivity : BaseActivity(), View.OnClickListener {
                     .addOnSuccessListener {
                         // Update successful
                         //hideProgressDialog()
-
+                        // Add Sold Product to firestore
+                        FirestoreClass().addSoldProducts(this,myOrderDetails)
                     }
                     .addOnFailureListener { e ->
                         // Handle error
@@ -237,6 +240,7 @@ class MyOrderDetailsActivity : BaseActivity(), View.OnClickListener {
                     }
 
                 sendOrderNotificationToUser()
+
                 hideProgressDialog()
                 onBackPressed()
             }
@@ -433,6 +437,8 @@ class MyOrderDetailsActivity : BaseActivity(), View.OnClickListener {
                     )
                 )
                 binding.tvOrderStatus.text = resources.getString(R.string.order_status_delivered)
+
+
             }
         }
         // END
@@ -469,6 +475,17 @@ class MyOrderDetailsActivity : BaseActivity(), View.OnClickListener {
         binding.tvOrderDetailsTotalAmount.text = orderDetails.total_amount
     }
     // END
+
+    fun addSoldProductsSuccess(){
+
+       // hideProgressDialog()
+
+        FancyToast.makeText(this,
+            "Sold Products Added Successfully",
+            FancyToast.LENGTH_SHORT,
+            FancyToast.SUCCESS,
+            true).show()
+    }
 
 
     // Create a function to setup action bar.
