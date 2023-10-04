@@ -8,9 +8,6 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.makaota.mammamskitchenmanager.R
@@ -118,6 +115,7 @@ class ManageOrdersFragment : BaseFragment() {
 
             val myOrdersAdapter = MyOrdersListAdapter(requireActivity(), ordersList)
             _binding!!.rvMyOrderItems.adapter = myOrdersAdapter
+
         } else {
             _binding!!.rvMyOrderItems.visibility = View.GONE
             _binding!!.tvNoOrdersFound.visibility = View.VISIBLE
@@ -137,5 +135,5 @@ class ManageOrdersFragment : BaseFragment() {
 
         FirestoreClass().getMyOrdersList(this@ManageOrdersFragment)
     }
-    // END
+
 }

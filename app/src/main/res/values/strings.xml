@@ -165,6 +165,7 @@
     <string name="btn_lbl_send_order_number">SEND ORDER NUMBER</string>
     <string name="btn_lbl_ready_for_collection">SEND READY FOR COLLECTION</string>
     <string name="btn_lbl_order_delivered">SEND ORDER DELIVERED</string>
+    <string name="btn_lbl_order_deleted">DELETE ORDER</string>
 
     <string name="no_orders_placed_yet">No orders placed yet!</string>
 
@@ -175,6 +176,7 @@
     <string name="order_details_lbl_order_date">Order Date</string>
     <string name="order_details_lbl_order_status">Order Status</string>
     <string name="order_details_lbl_order_number">Order Number</string>
+    <string name="order_details_lbl_order_confirmation">Order Confirmed</string>
     <string name="order_status_pending">Pending</string>
     <string name="order_details_lbl_shipping_address">Shipping Address</string>
 

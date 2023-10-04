@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.FirebaseFirestore
@@ -38,7 +40,7 @@ class MyOrderDetailsActivity : BaseActivity(), View.OnClickListener {
 
     lateinit var binding: ActivityMyOrderDetailsBinding
     lateinit var myOrderDetails: Order
-    var userToken = ""
+    private var userToken = ""
 
     lateinit var mOrderStatus: String
     lateinit var mOrderNumber: String
@@ -107,6 +109,7 @@ class MyOrderDetailsActivity : BaseActivity(), View.OnClickListener {
         binding.btnSendOrderNumber.setOnClickListener(this)
         binding.btnReadyForCollection.setOnClickListener(this)
         binding.btnDelivered.setOnClickListener(this)
+        binding.btnDeleteOrder.setOnClickListener(this)
 
     }
 
@@ -127,6 +130,7 @@ class MyOrderDetailsActivity : BaseActivity(), View.OnClickListener {
                     .document(myOrderDetails.id)
                 // Update the value of the order status
                 batch.update(documentRef, Constants.ORDER_STATUS, mOrderStatus)
+                batch.update(documentRef, Constants.USER_MANAGER_ID, FirestoreClass().getCurrentUserId())
                 Log.i(TAG, "orders status is = $mOrderStatus")
                 Log.i(TAG, "document ID is = ${myOrderDetails.id}")
                 batch.commit()
@@ -244,7 +248,72 @@ class MyOrderDetailsActivity : BaseActivity(), View.OnClickListener {
                 hideProgressDialog()
                 onBackPressed()
             }
+
+            R.id.btn_delete_order ->{
+
+                deleteDeliveredOrder(myOrderDetails.id)
+            }
         }
+    }
+
+    private fun deleteDeliveredOrder(orderId: String) {
+
+        showAlertDialogToDeleteDeliveredOrder(orderId)
+    }
+
+    private fun showAlertDialogToDeleteDeliveredOrder(orderId: String) {
+        val builder = AlertDialog.Builder(this)
+        //set title for alert dialog
+        builder.setTitle(resources.getString(R.string.delete_dialog_title))
+        //set message for alert dialog
+        builder.setMessage(resources.getString(R.string.delete_dialog_message))
+        builder.setIcon(android.R.drawable.ic_dialog_alert)
+
+        //performing positive action
+        builder.setPositiveButton(resources.getString(R.string.yes)) { dialogInterface, _ ->
+
+            // Call the function to delete the product from cloud firestore.
+            // START
+            // Show the progress dialog.
+            showProgressDialog(resources.getString(R.string.please_wait))
+
+            // Call the function of Firestore class.
+            FirestoreClass().deleteDeliveredOrder(this, orderId)
+            // END
+
+            dialogInterface.dismiss()
+        }
+
+        //performing negative action
+        builder.setNegativeButton(resources.getString(R.string.no)) { dialogInterface, _ ->
+
+            dialogInterface.dismiss()
+        }
+        // Create the AlertDialog
+        val alertDialog: AlertDialog = builder.create()
+        // Set other dialog properties
+        alertDialog.setCancelable(false)
+        alertDialog.show()
+    }
+    // END
+
+    // Create a function to notify the success result of product deleted from cloud firestore.
+    // START
+    /**
+     * A function to notify the success result of product deleted from cloud firestore.
+     */
+    fun orderDeleteSuccess() {
+
+        // Hide the progress dialog
+        hideProgressDialog()
+
+        Toast.makeText(
+            this,
+            resources.getString(R.string.product_delete_success_message),
+            Toast.LENGTH_SHORT
+        ).show()
+
+        finish()
     }
     // END
 
@@ -467,6 +536,12 @@ class MyOrderDetailsActivity : BaseActivity(), View.OnClickListener {
 
 
         binding.tvMyOrderDetailsFullName.text = myOrderDetails.userName
+
+        if (orderDetails.order_confirmation == ""){
+            binding.tvOrderConfirmationText.text = "No"
+        }else{
+            binding.tvOrderConfirmationText.text = orderDetails.order_confirmation
+        }
 
         binding.tvMyOrderDetailsMobileNumber.text = myOrderDetails.userMobile
 

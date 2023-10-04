@@ -7,6 +7,7 @@ import android.provider.MediaStore
 import android.webkit.MimeTypeMap
 
 object Constants {
+    const val USER_MANAGER_ID = "user_manager_id"
     const val BASE_URL = "https://fcm.googleapis.com"
     const val SERVER_KEY = "AAAA6WuBVzg:APA91bG42BqsBYwZ9UHeROrVNaWFE6A1Bl2b8eMDFpWsE3MI4MaLY1PLbGd7R9YIj6ysR4FoIwMmO8fSXALcKAB78RU4eRVBGGz4zjcr6c8Xm9IVE0wZ0O21KgFE_yk_XALjg5JfQ6db"
     const val CONTENT_TYPE = "application/json"
