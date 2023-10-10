@@ -18,6 +18,7 @@ import com.makaota.mammamskitchenmanager.R
 import com.makaota.mammamskitchenmanager.databinding.ActivityMyOrderDetailsBinding
 import com.makaota.mammamskitchenmanager.firestore.FirestoreClass
 import com.makaota.mammamskitchenmanager.models.NotificationData
+import com.makaota.mammamskitchenmanager.models.Notifications
 import com.makaota.mammamskitchenmanager.models.Order
 import com.makaota.mammamskitchenmanager.models.PushNotification
 import com.makaota.mammamskitchenmanager.models.User
@@ -117,13 +118,13 @@ class MyOrderDetailsActivity : BaseActivity(), View.OnClickListener {
         when (v?.id) {
             R.id.btn_notify_user_order_received -> {
 
+
                 showProgressDialog(resources.getString(R.string.please_wait))
 
                 val db = Firebase.firestore
                 val batch = db.batch()
                 // change the value of mOrderStatus
                 mOrderStatus = resources.getString(R.string.order_status_in_process)
-
 
 
                 val documentRef = db.collection(Constants.ORDERS)
@@ -150,11 +151,12 @@ class MyOrderDetailsActivity : BaseActivity(), View.OnClickListener {
 
             R.id.btn_send_order_number -> {
 
-                showProgressDialog(resources.getString(R.string.please_wait))
-                val db = Firebase.firestore
-                val batch = db.batch()
 
                 if (validateOrderNumberDetails()) {
+
+                    showProgressDialog(resources.getString(R.string.please_wait))
+                    val db = Firebase.firestore
+                    val batch = db.batch()
                     // change the value of mOrderStatus
                     mOrderStatus = resources.getString(R.string.order_status_preparing)
                     mOrderNumber = binding.etOrderNumber.text.toString()
@@ -266,7 +268,7 @@ class MyOrderDetailsActivity : BaseActivity(), View.OnClickListener {
         //set title for alert dialog
         builder.setTitle(resources.getString(R.string.delete_dialog_title))
         //set message for alert dialog
-        builder.setMessage(resources.getString(R.string.delete_dialog_message))
+        builder.setMessage(resources.getString(R.string.delete_order_dialog_message))
         builder.setIcon(android.R.drawable.ic_dialog_alert)
 
         //performing positive action
@@ -309,7 +311,7 @@ class MyOrderDetailsActivity : BaseActivity(), View.OnClickListener {
 
         Toast.makeText(
             this,
-            resources.getString(R.string.product_delete_success_message),
+            resources.getString(R.string.order_delete_success_message),
             Toast.LENGTH_SHORT
         ).show()
 
@@ -353,31 +355,78 @@ class MyOrderDetailsActivity : BaseActivity(), View.OnClickListener {
                     when {
                         mOrderStatus == resources.getString(R.string.order_status_in_process) -> {
 
-                            title = "My Order"
-                            message = "Your Order has been received"
+                            title = myOrderDetails.title
+                            message = "Your Order has been received Please Confirm the order to " +
+                                    "Continue"
+
+                            val notifications = Notifications(
+                                title = title,
+                                orderDateTime = myOrderDetails.order_datetime,
+                                orderStatus = mOrderStatus,
+                                orderMessage = message,
+                                orderConfirmed = myOrderDetails.order_confirmation,
+                                orderNumber = mOrderNumber,
+                                user_id = myOrderDetails.user_id
+                            )
+
+                            FirestoreClass().uploadNotificationsDetails(this, notifications)
 
                         }
 
                         mOrderStatus == resources.getString(R.string.order_status_preparing) -> {
 
-                            title = "My Order"
-                            message =
-                                "Your Order is being prepared here is the order number $mOrderNumber"
+                            title = myOrderDetails.title
+                            message = "Your Order is being prepared check the order number"
+
+                            val notifications = Notifications(
+                                title = title,
+                                orderDateTime = myOrderDetails.order_datetime,
+                                orderStatus = mOrderStatus,
+                                orderMessage = message,
+                                orderConfirmed = myOrderDetails.order_confirmation,
+                                orderNumber = mOrderNumber,
+                                user_id = myOrderDetails.user_id
+                            )
+
+                            FirestoreClass().uploadNotificationsDetails(this, notifications)
 
                         }
 
                         mOrderStatus == resources.getString(R.string.order_status_ready_for_collection) -> {
 
-                            title = "My Order"
+                            title = myOrderDetails.title
                             message = "Your Order is ready for collection"
+
+                            val notifications = Notifications(
+                                title = title,
+                                orderDateTime = myOrderDetails.order_datetime,
+                                orderStatus = mOrderStatus,
+                                orderMessage = message,
+                                orderConfirmed = myOrderDetails.order_confirmation,
+                                orderNumber = mOrderNumber,
+                                user_id = myOrderDetails.user_id
+                            )
+
+                            FirestoreClass().uploadNotificationsDetails(this, notifications)
 
                         }
 
                         mOrderStatus == resources.getString(R.string.order_status_delivered) -> {
 
-                            title = "My Order"
-                            message =
-                                "Your Order is delivered thank you very much for using this app to make your order "
+                            title = myOrderDetails.title
+                            message = "Your Order is delivered thank you very much for using this app to make your order "
+
+                            val notifications = Notifications(
+                                title = title,
+                                orderDateTime = myOrderDetails.order_datetime,
+                                orderStatus = mOrderStatus,
+                                orderMessage = message,
+                                orderConfirmed = myOrderDetails.order_confirmation,
+                                orderNumber = mOrderNumber,
+                                user_id = myOrderDetails.user_id
+                            )
+
+                            FirestoreClass().uploadNotificationsDetails(this, notifications)
 
                         }
                     }
@@ -386,7 +435,7 @@ class MyOrderDetailsActivity : BaseActivity(), View.OnClickListener {
 
                     PushNotification(NotificationData(title, message), userToken).also {
                         sendOrderNotification(it)
-                        Log.i(TAG, "user Token sent notification = $userToken")
+                        Log.i(TAG, "${title}, $message user Token sent notification = $userToken")
                     }
 
                     Log.i(TAG, "user Token = $userToken")
@@ -399,6 +448,17 @@ class MyOrderDetailsActivity : BaseActivity(), View.OnClickListener {
             }
     }
 
+    fun notificationsUploadSuccess(){
+
+        //  hideProgressDialog()
+
+        FancyToast.makeText(
+            this,
+            "Notifications Info Uploaded successfully.",
+            FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, true
+        )
+            .show()
+    }
 
     private fun sendOrderNotification(notification: PushNotification) =
         CoroutineScope(Dispatchers.IO).launch {
@@ -539,6 +599,10 @@ class MyOrderDetailsActivity : BaseActivity(), View.OnClickListener {
 
         if (orderDetails.order_confirmation == ""){
             binding.tvOrderConfirmationText.text = "No"
+
+            binding.etOrderNumber.isEnabled = false
+            binding.btnSendOrderNumber.isEnabled  = false
+
         }else{
             binding.tvOrderConfirmationText.text = orderDetails.order_confirmation
         }

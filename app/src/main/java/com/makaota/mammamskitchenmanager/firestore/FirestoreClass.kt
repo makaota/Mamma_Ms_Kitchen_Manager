@@ -11,6 +11,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.makaota.mammamskitchenmanager.models.Notifications
 import com.makaota.mammamskitchenmanager.models.Order
 import com.makaota.mammamskitchenmanager.models.Product
 import com.makaota.mammamskitchenmanager.models.SoldProduct
@@ -579,5 +580,30 @@ class FirestoreClass {
 
     }
     // END
+
+    /**
+     * A function to make an entry of the user's notifications in the cloud firestore database.
+     */
+    fun uploadNotificationsDetails(activity: MyOrderDetailsActivity, notificationsInfo: Notifications) {
+
+        mFirestore.collection(Constants.NOTIFICATIONS)
+            //.document()
+            // Here the userInfo are Field and the SetOption is set to merge. It is for if we wants to merge
+            .add(notificationsInfo)
+            .addOnSuccessListener {
+
+                // Here call a function of base activity for transferring the result to it.
+             activity.notificationsUploadSuccess()
+
+            }
+            .addOnFailureListener { e ->
+                activity.hideProgressDialog()
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error while uploading the product details.",
+                    e
+                )
+            }
+    }
 
 }
