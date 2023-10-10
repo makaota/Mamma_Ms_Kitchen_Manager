@@ -5,9 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorOffWhite"
-    tools:context=".ui.fragments.SoldProductsFragment">
+    tools:context=".ui.fragments.SoldProductsFragment"
+    android:layout_marginBottom="?actionBarSize">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/sold_products_swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
