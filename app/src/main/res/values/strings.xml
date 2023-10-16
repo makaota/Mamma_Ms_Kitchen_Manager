@@ -88,6 +88,7 @@
 
     <string name="err_msg_select_product_image">Please select product image.</string>
     <string name="err_msg_enter_product_title">Please enter product title.</string>
+    <string name="err_msg_enter_product_category">Please enter product category.</string>
     <string name="err_msg_enter_product_price">Please enter product price.</string>
     <string name="err_msg_enter_product_description">Please enter product description.</string>
     <string name="err_msg_enter_product_quantity">Please enter product quantity.</string>
@@ -101,6 +102,8 @@
     <string name="delete_dialog_title">Delete</string>
     <string name="delete_dialog_message">Are you sure you want to delete the product?</string>
     <string name="delete_order_dialog_message">Are you sure you want to delete the order?</string>
+
+    <string name="et_hint_menu_category">select menu category</string>
 
     <string name="yes">Yes</string>
     <string name="no">No</string>

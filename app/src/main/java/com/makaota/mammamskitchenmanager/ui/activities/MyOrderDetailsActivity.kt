@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -40,6 +41,7 @@ const val TAG = "MyOrderDetailsActivity"
 class MyOrderDetailsActivity : BaseActivity(), View.OnClickListener {
 
     lateinit var binding: ActivityMyOrderDetailsBinding
+    private lateinit var orderDetailsSwipeRefreshLayout: SwipeRefreshLayout
     lateinit var myOrderDetails: Order
     private var userToken = ""
 
@@ -54,6 +56,7 @@ class MyOrderDetailsActivity : BaseActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         binding = ActivityMyOrderDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        orderDetailsSwipeRefreshLayout = findViewById(R.id.order_details_swipe_refresh_layout)
         setupActionBar()
 
         // Get the order details through intent.
@@ -101,10 +104,13 @@ class MyOrderDetailsActivity : BaseActivity(), View.OnClickListener {
         }
 
 
+        setupUI(myOrderDetails)
+
+        refreshOrdersPage()
 
         FirebaseMessaging.getInstance().subscribeToTopic(TOPIC)
 
-        setupUI(myOrderDetails)
+
 
         binding.btnNotifyUserOrderReceived.setOnClickListener(this)
         binding.btnSendOrderNumber.setOnClickListener(this)
@@ -255,6 +261,22 @@ class MyOrderDetailsActivity : BaseActivity(), View.OnClickListener {
 
                 deleteDeliveredOrder(myOrderDetails.id)
             }
+        }
+    }
+
+    private fun refreshOrdersPage() {
+
+        orderDetailsSwipeRefreshLayout.setOnRefreshListener {
+            onBackPressed()
+            FancyToast.makeText(
+                this,
+                "Order Details Refreshed",
+                FancyToast.LENGTH_SHORT,
+                FancyToast.SUCCESS,
+                true
+            ).show()
+
+            orderDetailsSwipeRefreshLayout.isRefreshing = false
         }
     }
 
@@ -476,6 +498,7 @@ class MyOrderDetailsActivity : BaseActivity(), View.OnClickListener {
             }
 
         }
+
 
 
     // Create a function to setup UI.

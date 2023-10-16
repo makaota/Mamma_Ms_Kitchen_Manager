@@ -23,6 +23,15 @@ object Constants {
 
     const val ORDER_STATUS: String = "orderStatus"
 
+
+    //menu categories
+    const val ADDITIONAL_MEALS: String = "ADDITIONAL MEALS"
+    const val SCAMBANE: String = "SCAMBANE"
+    const val CHIPS: String = "CHIPS"
+    const val RUSSIAN: String= "RUSSIAN"
+    const val DRINKS: String = "DRINKS"
+
+
     const val PLATTERS: String = "platters"
     const val PIZZA: String = "pizza"
     const val PASTA: String = "pasta"
@@ -37,7 +46,7 @@ object Constants {
     const val ROLLS: String = "rolls"
     const val SIDES: String = "sides"
     const val SALADS: String = "salads"
-    const val DRINKS: String = "drinks"
+
 
     // Product Constants
 

@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -24,6 +25,7 @@ import java.io.IOException
 
 class AddMenuActivity : BaseActivity(), View.OnClickListener {
 
+    private lateinit var selectedCategoryItem: String
     lateinit var binding: ActivityAddMenuBinding
     private var mSelectedImageFileUri: Uri? = null
     private var mProductImageURL: String = ""
@@ -50,6 +52,8 @@ class AddMenuActivity : BaseActivity(), View.OnClickListener {
             binding.tvTitle.text = "EDIT PRODUCT"
 
             binding.etProductTitle.setText(mProductDetails!!.title)
+            binding.actvMenuCategory.setText(mProductDetails!!.category)
+            binding.menu.isEnabled = false
             binding.etProductPrice.setText(mProductDetails!!.price)
             binding.etProductDescription.setText(mProductDetails!!.description)
             binding.etProductQuantity.setText(mProductDetails!!.stock_quantity)
@@ -59,12 +63,26 @@ class AddMenuActivity : BaseActivity(), View.OnClickListener {
 
         }
 
-
-
-
         binding.ivAddUpdateProduct.setOnClickListener(this)
         binding.btnSubmit.setOnClickListener(this)
         binding.btnUpdate.setOnClickListener(this)
+
+        // List of Menu category to be selected
+        val menuCategory = listOf(
+            Constants.SCAMBANE, Constants.CHIPS, Constants.RUSSIAN, Constants.ADDITIONAL_MEALS,
+            Constants.DRINKS
+        )
+
+        val adapter = ArrayAdapter(this, R.layout.category_list_items, menuCategory)
+        val autoCompleteTextView = binding.actvMenuCategory
+
+        autoCompleteTextView.setAdapter(adapter)
+
+        autoCompleteTextView.setOnItemClickListener { parent, view, position, l ->
+
+            selectedCategoryItem = parent.getItemAtPosition(position).toString()
+
+        }
 
     }
 
@@ -156,7 +174,6 @@ class AddMenuActivity : BaseActivity(), View.OnClickListener {
             }
         }
     }
-
     /**
      * A function to validate the product details.
      */
@@ -172,6 +189,12 @@ class AddMenuActivity : BaseActivity(), View.OnClickListener {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_product_title), true)
                 false
             }
+
+            TextUtils.isEmpty(binding.actvMenuCategory.text.toString().trim { it <= ' ' }) -> {
+                showErrorSnackBar(resources.getString(R.string.err_msg_enter_product_category), true)
+                false
+            }
+
 
             TextUtils.isEmpty(binding.etProductPrice.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_product_price), true)
@@ -290,6 +313,7 @@ class AddMenuActivity : BaseActivity(), View.OnClickListener {
             user_id = FirestoreClass().getCurrentUserId(),
             user_name = username,
             title = binding.etProductTitle.text.toString().trim { it <= ' ' },
+            category = selectedCategoryItem,
             price = binding.etProductPrice.text.toString().trim { it <= ' ' },
             description = binding.etProductDescription.text.toString().trim { it <= ' ' },
             stock_quantity = binding.etProductQuantity.text.toString().trim{ it <= ' '},
