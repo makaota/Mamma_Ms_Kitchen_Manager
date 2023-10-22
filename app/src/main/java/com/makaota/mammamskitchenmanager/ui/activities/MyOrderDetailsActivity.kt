@@ -41,7 +41,6 @@ const val TAG = "MyOrderDetailsActivity"
 class MyOrderDetailsActivity : BaseActivity(), View.OnClickListener {
 
     lateinit var binding: ActivityMyOrderDetailsBinding
-    private lateinit var orderDetailsSwipeRefreshLayout: SwipeRefreshLayout
     lateinit var myOrderDetails: Order
     private var userToken = ""
 
@@ -56,7 +55,6 @@ class MyOrderDetailsActivity : BaseActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         binding = ActivityMyOrderDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        orderDetailsSwipeRefreshLayout = findViewById(R.id.order_details_swipe_refresh_layout)
         setupActionBar()
 
         // Get the order details through intent.
@@ -105,8 +103,6 @@ class MyOrderDetailsActivity : BaseActivity(), View.OnClickListener {
 
 
         setupUI(myOrderDetails)
-
-        refreshOrdersPage()
 
         FirebaseMessaging.getInstance().subscribeToTopic(TOPIC)
 
@@ -261,22 +257,6 @@ class MyOrderDetailsActivity : BaseActivity(), View.OnClickListener {
 
                 deleteDeliveredOrder(myOrderDetails.id)
             }
-        }
-    }
-
-    private fun refreshOrdersPage() {
-
-        orderDetailsSwipeRefreshLayout.setOnRefreshListener {
-            onBackPressed()
-            FancyToast.makeText(
-                this,
-                "Order Details Refreshed",
-                FancyToast.LENGTH_SHORT,
-                FancyToast.SUCCESS,
-                true
-            ).show()
-
-            orderDetailsSwipeRefreshLayout.isRefreshing = false
         }
     }
 
