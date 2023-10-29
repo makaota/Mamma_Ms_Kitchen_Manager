@@ -23,6 +23,8 @@ object Constants {
 
     const val ORDER_STATUS: String = "orderStatus"
 
+    const val CART_ITEMS: String = "cart_items"
+
 
     //menu categories
     const val ADDITIONAL_MEALS: String = "ADDITIONAL MEALS"

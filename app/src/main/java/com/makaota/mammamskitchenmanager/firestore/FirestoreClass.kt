@@ -11,6 +11,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.makaota.mammamskitchenmanager.models.CartItem
 import com.makaota.mammamskitchenmanager.models.Notifications
 import com.makaota.mammamskitchenmanager.models.Order
 import com.makaota.mammamskitchenmanager.models.Product
@@ -479,6 +480,49 @@ class FirestoreClass {
             }
     }
     // END
+
+
+
+    // Create a function to update all the required details in the cloud firestore after placing the order successfully.
+    // START
+    /**
+     * A function to update all the required details in the cloud firestore after placing the order successfully.
+     *
+     * @param activity Base class.
+     * @param cartList List of cart items.
+     */
+    fun updateAllDetails(activity: MyOrderDetailsActivity, userId: String) {
+
+        mFirestore.collection(Constants.ORDERS)
+            .whereEqualTo(Constants.USER_ID, userId)
+            .get()
+            .addOnSuccessListener { documents->
+
+
+                val orderList: ArrayList<Order> = ArrayList()
+
+                for (document in documents) {
+                    val order = document.toObject(Order::class.java)
+                    orderList.add(order)
+
+                }
+
+                activity.allDetailsUpdatedSuccessfully(orderList)
+
+            }.addOnFailureListener {
+
+
+
+                Log.e(activity.javaClass.simpleName,
+                    "Error while updating all the details after order placed.",
+                    it
+                )
+
+            }
+
+    }
+    // END
+
     fun addSoldProducts(activity: MyOrderDetailsActivity, orderDetails: Order){
 
 

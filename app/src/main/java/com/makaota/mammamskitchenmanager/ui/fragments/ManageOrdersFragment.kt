@@ -14,6 +14,7 @@ import com.makaota.mammamskitchenmanager.R
 import com.makaota.mammamskitchenmanager.databinding.FragmentManageOrdersBinding
 import com.makaota.mammamskitchenmanager.firestore.FirestoreClass
 import com.makaota.mammamskitchenmanager.models.Order
+import com.makaota.mammamskitchenmanager.ui.activities.OpenCloseStoreActivity
 import com.makaota.mammamskitchenmanager.ui.activities.SettingsActivity
 import com.makaota.mammamskitchenmanager.ui.adapters.MyOrdersListAdapter
 import com.shashank.sony.fancytoastlib.FancyToast
@@ -30,11 +31,15 @@ class ManageOrdersFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.dashboard_menu,menu)
         super.onCreateOptionsMenu(menu, inflater)
+
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -42,6 +47,11 @@ class ManageOrdersFragment : BaseFragment() {
         when (id) {
             R.id.action_settings -> {
                 startActivity(Intent(activity, SettingsActivity::class.java))
+                return true
+            }
+
+            R.id.action_open_close_store -> {
+                startActivity(Intent(activity, OpenCloseStoreActivity::class.java))
                 return true
             }
         }

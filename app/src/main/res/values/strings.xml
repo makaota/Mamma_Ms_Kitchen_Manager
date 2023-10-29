@@ -70,6 +70,7 @@
     <string name="please_click_back_again_to_exit">Please click back again to exit.</string>
 
     <string name="action_settings">Settings</string>
+    <string name="action_open_close">Open/Close Store</string>
 
     <string name="title_settings">SETTINGS</string>
     <string name="lbl_edit">Edit</string>
@@ -176,6 +177,7 @@
     <string name="no_orders_placed_yet">No orders placed yet!</string>
 
     <string name="title_my_order_details">MY ORDER DETAILS</string>
+    <string name="title_open_close_store">OPEN / CLOSE STORE</string>
     <string name="order_details_lbl">Order Details</string>
     <string name="user_details_lbl">Customer Details</string>
     <string name="order_details_lbl_order_id">Order ID</string>

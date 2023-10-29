@@ -1,5 +1,6 @@
 package com.makaota.mammamskitchenmanager.ui.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
@@ -18,12 +19,14 @@ import com.google.gson.Gson
 import com.makaota.mammamskitchenmanager.R
 import com.makaota.mammamskitchenmanager.databinding.ActivityMyOrderDetailsBinding
 import com.makaota.mammamskitchenmanager.firestore.FirestoreClass
+import com.makaota.mammamskitchenmanager.models.CartItem
 import com.makaota.mammamskitchenmanager.models.NotificationData
 import com.makaota.mammamskitchenmanager.models.Notifications
 import com.makaota.mammamskitchenmanager.models.Order
 import com.makaota.mammamskitchenmanager.models.PushNotification
 import com.makaota.mammamskitchenmanager.models.User
 import com.makaota.mammamskitchenmanager.ui.adapters.CartItemsListAdapter
+import com.makaota.mammamskitchenmanager.ui.fragments.SoldProductsFragment
 import com.makaota.mammamskitchenmanager.utils.Constants
 import com.makaota.mammamskitchenmanager.utils.RetrofitInstance
 import com.shashank.sony.fancytoastlib.FancyToast
@@ -428,6 +431,9 @@ class MyOrderDetailsActivity : BaseActivity(), View.OnClickListener {
                                 user_id = myOrderDetails.user_id
                             )
 
+
+                            FirestoreClass().updateAllDetails(this,myOrderDetails.user_id)
+
                             FirestoreClass().uploadNotificationsDetails(this, notifications)
 
                         }
@@ -627,6 +633,67 @@ class MyOrderDetailsActivity : BaseActivity(), View.OnClickListener {
             FancyToast.LENGTH_SHORT,
             FancyToast.SUCCESS,
             true).show()
+    }
+
+
+    // Create a function to notify the success result after updating all the required details.
+    // START
+    /**
+     * A function to notify the success result after updating all the required details.
+     */
+    fun allDetailsUpdatedSuccessfully(orderDetailsList: ArrayList<Order>) {
+
+
+        val mFirestore = FirebaseFirestore.getInstance()
+        val writeBatch = mFirestore.batch()
+
+        var cartItems : ArrayList<CartItem> = ArrayList()
+
+        for (cartItem in orderDetailsList){
+
+            val order = myOrderDetails
+            cartItems = order.items
+        }
+
+        // Here we will update the product stock in the products collection based to cart quantity.
+        for (cartItem in cartItems) {
+
+            val productHashMap = HashMap<String, Any>()
+
+            productHashMap[Constants.STOCK_QUANTITY] =
+                (cartItem.stock_quantity.toInt() - cartItem.cart_quantity.toInt()).toString()
+
+            val hashValue =
+                cartItem.stock_quantity.toInt() - cartItem.cart_quantity.toInt()
+
+            Log.i(
+                "Stock", "stock quantity = ${cartItem.stock_quantity}, " +
+                        "cart quantity = ${cartItem.cart_quantity}, " +
+                        " Product Hash Map = $hashValue"
+            )
+
+            val documentReference = mFirestore.collection(Constants.PRODUCTS)
+                .document(cartItem.product_id)
+
+            writeBatch.update(documentReference, productHashMap)
+
+        }
+        writeBatch.commit().addOnSuccessListener {
+
+
+            FancyToast.makeText(
+                this@MyOrderDetailsActivity,
+                "all details updated successfully.",
+                FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, true
+            )
+                .show()
+
+        }.addOnFailureListener {
+
+            it.message
+        }
+
+
     }
 
 

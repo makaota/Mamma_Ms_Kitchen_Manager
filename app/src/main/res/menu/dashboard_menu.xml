@@ -3,6 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/action_open_close_store"
+        android:title="@string/action_open_close"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/action_settings"
         android:icon="@drawable/ic_vector_settings"
         android:title="@string/action_settings"
