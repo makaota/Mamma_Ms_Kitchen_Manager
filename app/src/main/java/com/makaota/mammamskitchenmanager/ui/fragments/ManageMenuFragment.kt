@@ -21,12 +21,15 @@ import com.makaota.mammamskitchenmanager.firestore.FirestoreClass
 import com.makaota.mammamskitchenmanager.models.Product
 import com.makaota.mammamskitchenmanager.ui.activities.AddMenuActivity
 import com.makaota.mammamskitchenmanager.ui.adapters.MyProductListAdapter
+import com.makaota.mammamskitchenmanager.utils.Constants
 import com.shashank.sony.fancytoastlib.FancyToast
 
 class ManageMenuFragment : BaseFragment() {
 
     private var _binding: FragmentManageMenuBinding? = null
     private lateinit var menuSwipeRefreshLayout: SwipeRefreshLayout
+
+    private lateinit var mProductsList: ArrayList<Product>
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -61,8 +64,8 @@ class ManageMenuFragment : BaseFragment() {
 
         _binding = FragmentManageMenuBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        menuSwipeRefreshLayout = root.findViewById(R.id.menu_swipe_refresh_layout)
-        refreshPage()
+//        menuSwipeRefreshLayout = root.findViewById(R.id.menu_swipe_refresh_layout)
+//        refreshPage()
         return root
     }
 
@@ -78,21 +81,21 @@ class ManageMenuFragment : BaseFragment() {
     }
 
 
-    private fun refreshPage() {
-
-        menuSwipeRefreshLayout.setOnRefreshListener {
-            getProductListFromFireStore() // Reload Menu Items
-            FancyToast.makeText(
-                requireContext(),
-                "Menu Refreshed",
-                FancyToast.LENGTH_SHORT,
-                FancyToast.SUCCESS,
-                true
-            ).show()
-
-            _binding!!.menuSwipeRefreshLayout.isRefreshing = false
-        }
-    }
+//    private fun refreshPage() {
+//
+//        menuSwipeRefreshLayout.setOnRefreshListener {
+//            getProductListFromFireStore() // Reload Menu Items
+//            FancyToast.makeText(
+//                requireContext(),
+//                "Menu Refreshed",
+//                FancyToast.LENGTH_SHORT,
+//                FancyToast.SUCCESS,
+//                true
+//            ).show()
+//
+//            _binding!!.menuSwipeRefreshLayout.isRefreshing = false
+//        }
+//    }
 
     /**
      * A function to get the successful product list from cloud firestore.
@@ -101,23 +104,144 @@ class ManageMenuFragment : BaseFragment() {
      */
     fun successProductsListFromFireStore(productsList: ArrayList<Product>) {
 
+
         // Hide Progress dialog.
         hideProgressDialog()
 
-        if (productsList.size > 0) {
-            binding.rvMyProductItems.visibility = View.VISIBLE
+        val scambaneList = ArrayList<Product>()
+        val chipsList = ArrayList<Product>()
+        val russianList = ArrayList<Product>()
+        val additionalMealList = ArrayList<Product>()
+        val drinksList = ArrayList<Product>()
+
+
+        for (product in productsList) {
+
+            //Scambane List
+            if (product.category == Constants.SCAMBANE) {
+                scambaneList.add(product)
+            }
+
+            //Chips List
+            if (product.category == Constants.CHIPS){
+                chipsList.add(product)
+            }
+
+            //Russian List
+            if (product.category == Constants.RUSSIAN){
+                russianList.add(product)
+            }
+
+            //Additional List
+            if (product.category == Constants.ADDITIONAL_MEALS){
+                additionalMealList.add(product)
+            }
+
+            //Drinks List
+            if (product.category == Constants.DRINKS){
+                drinksList.add(product)
+            }
+
+        }
+
+        //Scambane List RecycleView
+        if (scambaneList.size > 0) {
+            binding.rvMyScambaneItems.visibility = View.VISIBLE
             binding.tvNoProductsFound.visibility = View.GONE
 
-            binding.rvMyProductItems.layoutManager = LinearLayoutManager(activity)
-            binding.rvMyProductItems.setHasFixedSize(true)
+            binding.rvMyScambaneItems.layoutManager = LinearLayoutManager(activity)
+            binding.rvMyScambaneItems.setHasFixedSize(true)
 
-            val adapterProducts = MyProductListAdapter(requireActivity(), productsList, this@ManageMenuFragment)
-            binding.rvMyProductItems.adapter = adapterProducts
+            val adapterProducts = MyProductListAdapter(requireActivity(), scambaneList, this@ManageMenuFragment)
+            binding.rvMyScambaneItems.adapter = adapterProducts
         } else {
-            binding.rvMyProductItems.visibility = View.GONE
+            binding.rvMyScambaneItems.visibility = View.GONE
             binding.tvNoProductsFound.visibility = View.VISIBLE
         }
+
+        //Chips List RecycleView
+        if (chipsList.size > 0) {
+            binding.rvMyChipsItems.visibility = View.VISIBLE
+            binding.tvNoProductsFound.visibility = View.GONE
+
+            binding.rvMyChipsItems.layoutManager = LinearLayoutManager(activity)
+            binding.rvMyChipsItems.setHasFixedSize(true)
+
+            val adapterProducts = MyProductListAdapter(requireActivity(), chipsList, this@ManageMenuFragment)
+            binding.rvMyChipsItems.adapter = adapterProducts
+        } else {
+            binding.rvMyChipsItems.visibility = View.GONE
+            binding.tvNoProductsFound.visibility = View.VISIBLE
+        }
+
+        //Russian List RecycleView
+        if (russianList.size > 0) {
+            binding.rvMyRussianItems.visibility = View.VISIBLE
+            binding.tvNoProductsFound.visibility = View.GONE
+
+            binding.rvMyRussianItems.layoutManager = LinearLayoutManager(activity)
+            binding.rvMyRussianItems.setHasFixedSize(true)
+
+            val adapterProducts = MyProductListAdapter(requireActivity(), russianList, this@ManageMenuFragment)
+            binding.rvMyRussianItems.adapter = adapterProducts
+        } else {
+            binding.rvMyRussianItems.visibility = View.GONE
+            binding.tvNoProductsFound.visibility = View.VISIBLE
+        }
+
+        //Additional Meals List RecycleView
+        if (additionalMealList.size > 0) {
+            binding.rvMyAdditionalMealsItems.visibility = View.VISIBLE
+            binding.tvNoProductsFound.visibility = View.GONE
+
+            binding.rvMyAdditionalMealsItems.layoutManager = LinearLayoutManager(activity)
+            binding.rvMyAdditionalMealsItems.setHasFixedSize(true)
+
+            val adapterProducts = MyProductListAdapter(requireActivity(), additionalMealList, this@ManageMenuFragment)
+            binding.rvMyAdditionalMealsItems.adapter = adapterProducts
+        } else {
+            binding.rvMyAdditionalMealsItems.visibility = View.GONE
+            binding.tvNoProductsFound.visibility = View.VISIBLE
+        }
+
+        //Drinks List RecycleView
+        if (drinksList.size > 0) {
+            binding.rvMyDrinksItems.visibility = View.VISIBLE
+            binding.tvNoProductsFound.visibility = View.GONE
+
+            binding.rvMyDrinksItems.layoutManager = LinearLayoutManager(activity)
+            binding.rvMyDrinksItems.setHasFixedSize(true)
+
+            val adapterProducts = MyProductListAdapter(requireActivity(), drinksList, this@ManageMenuFragment)
+            binding.rvMyDrinksItems.adapter = adapterProducts
+        } else {
+            binding.rvMyDrinksItems.visibility = View.GONE
+            binding.tvNoProductsFound.visibility = View.VISIBLE
+        }
+
     }
+
+//    private fun getMenuByCategory(productsList: ArrayList<Product>){
+//
+//        // Hide Progress dialog.
+//        hideProgressDialog()
+//
+//        mProductsList = productsList
+//
+//        if (productsList.size > 0) {
+//            binding.rvMyProductItems.visibility = View.VISIBLE
+//            binding.tvNoProductsFound.visibility = View.GONE
+//
+//            binding.rvMyProductItems.layoutManager = LinearLayoutManager(activity)
+//            binding.rvMyProductItems.setHasFixedSize(true)
+//
+//            val adapterProducts = MyProductListAdapter(requireActivity(), productsList, this@ManageMenuFragment)
+//            binding.rvMyProductItems.adapter = adapterProducts
+//        } else {
+//            binding.rvMyProductItems.visibility = View.GONE
+//            binding.tvNoProductsFound.visibility = View.VISIBLE
+//        }
+//    }
 
     private fun getProductListFromFireStore() {
         // Show the progress dialog.

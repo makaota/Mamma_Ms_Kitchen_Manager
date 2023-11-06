@@ -35,22 +35,6 @@ object Constants {
     const val DRINKS: String = "DRINKS"
 
 
-    const val PLATTERS: String = "platters"
-    const val PIZZA: String = "pizza"
-    const val PASTA: String = "pasta"
-    const val BEEF: String = "beef"
-    const val CHICKEN: String = "chicken"
-    const val PORK: String = "pork"
-    const val FISH: String = "fish"
-    const val BURGERS: String = "burgers"
-    const val SUBS: String = "subs"
-    const val TRAMEZZINI: String = "tramezzini"
-    const val TOASTED_SANDWICH: String = "toasted_sandwich"
-    const val ROLLS: String = "rolls"
-    const val SIDES: String = "sides"
-    const val SALADS: String = "salads"
-
-
     // Product Constants
 
     const val PRODUCT_TITLE = "title"
