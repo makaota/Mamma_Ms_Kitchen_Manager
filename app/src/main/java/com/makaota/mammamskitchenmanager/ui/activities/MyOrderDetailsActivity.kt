@@ -619,7 +619,7 @@ class MyOrderDetailsActivity : BaseActivity(), View.OnClickListener {
         binding.tvMyOrderDetailsMobileNumber.text = myOrderDetails.userMobile
 
         binding.tvOrderDetailsSubTotal.text = orderDetails.sub_total_amount
-        binding.tvOrderDetailsShippingCharge.text = orderDetails.shipping_charge
+        binding.tvOrderDetailsShippingCharge.text = orderDetails.delivery_charge
         binding.tvOrderDetailsTotalAmount.text = orderDetails.total_amount
     }
     // END

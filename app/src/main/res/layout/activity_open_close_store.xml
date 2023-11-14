@@ -14,7 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
+        <com.makaota.mammamskitchenmanager.utils.RAMTextView
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -29,7 +29,7 @@
     </androidx.appcompat.widget.Toolbar>
 
 
-    <com.makaota.mammamskitchenmanager.utils.RAMTextView
+    <com.makaota.mammamskitchenmanager.utils.RAMTextViewBold
         android:id="@+id/RAMTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,13 +44,13 @@
 
     <Button
         android:id="@+id/btn_open_close"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/btn_320dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="60dp"
         android:text="Open Store"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
+        android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@+id/RAMTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

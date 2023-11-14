@@ -7,6 +7,7 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
+    android:background="@drawable/app_gradient_color_background"
     android:id="@+id/order_details_swipe_refresh_layout"
     tools:context=".ui.activities.MyOrderDetailsActivity">
 
@@ -19,7 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.makaota.mammamskitchenmanager.utils.RAMTextViewBold
+        <com.makaota.mammamskitchenmanager.utils.RAMTextView
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -57,7 +58,7 @@
                 android:paddingTop="@dimen/my_order_details_content_lbl_padding"
                 android:paddingBottom="@dimen/my_order_details_content_lbl_padding"
                 android:text="@string/order_details_lbl"
-                android:textColor="@color/colorSecondaryText"
+                android:textColor="@color/colorPrimaryText"
                 android:textSize="@dimen/my_order_details_lbl_textSize" />
 
             <LinearLayout
@@ -204,7 +205,7 @@
                 android:paddingTop="@dimen/my_order_details_content_lbl_padding"
                 android:paddingBottom="@dimen/my_order_details_content_lbl_padding"
                 android:text="@string/checkout_lbl_product_items"
-                android:textColor="@color/colorSecondaryText"
+                android:textColor="@color/colorPrimaryText"
                 android:textSize="@dimen/my_order_details_lbl_textSize" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -230,7 +231,7 @@
                     android:paddingTop="@dimen/my_order_details_content_lbl_padding"
                     android:paddingBottom="@dimen/my_order_details_content_lbl_padding"
                     android:text="@string/user_details_lbl"
-                    android:textColor="@color/colorSecondaryText"
+                    android:textColor="@color/colorPrimaryText"
                     android:textSize="@dimen/my_order_details_lbl_textSize" />
 
                 <com.makaota.mammamskitchenmanager.utils.RAMTextViewBold
@@ -262,7 +263,7 @@
                 android:paddingTop="@dimen/checkout_content_lbl_padding"
                 android:paddingBottom="@dimen/checkout_content_lbl_padding"
                 android:text="@string/checkout_lbl_selected_address"
-                android:textColor="@color/colorSecondaryText"
+                android:textColor="@color/colorPrimaryText"
                 android:textSize="@dimen/checkout_lbl_textSize" />
 
             <LinearLayout
@@ -342,7 +343,7 @@
                 android:paddingTop="@dimen/my_order_details_content_lbl_padding"
                 android:paddingBottom="@dimen/my_order_details_content_lbl_padding"
                 android:text="@string/checkout_lbl_items_receipt"
-                android:textColor="@color/colorSecondaryText"
+                android:textColor="@color/colorPrimaryText"
                 android:textSize="@dimen/my_order_details_lbl_textSize" />
 
             <LinearLayout
@@ -455,12 +456,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:layout_margin="16dp"
+                android:layout_margin="6dp"
+                android:paddingBottom="15dp"
+                android:paddingTop="10dp"
                 android:orientation="vertical">
 
                 <com.makaota.mammamskitchenmanager.utils.RAMButton
                     android:id="@+id/btn_notify_user_order_received"
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/btn_320dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="16dp"
@@ -504,7 +507,7 @@
 
                 <com.makaota.mammamskitchenmanager.utils.RAMButton
                     android:id="@+id/btn_send_order_number"
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/btn_320dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="16dp"
@@ -523,7 +526,7 @@
 
                 <com.makaota.mammamskitchenmanager.utils.RAMButton
                     android:id="@+id/btn_ready_for_collection"
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/btn_320dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="16dp"
@@ -542,7 +545,7 @@
 
                 <com.makaota.mammamskitchenmanager.utils.RAMButton
                     android:id="@+id/btn_delivered"
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/btn_320dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="16dp"
@@ -561,7 +564,7 @@
 
                 <com.makaota.mammamskitchenmanager.utils.RAMButton
                     android:id="@+id/btn_delete_order"
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/btn_320dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="16dp"

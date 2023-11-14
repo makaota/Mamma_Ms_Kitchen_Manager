@@ -4,16 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorOffWhite"
+    android:background="@drawable/app_gradient_color_background"
     tools:context=".ui.fragments.ManageMenuFragment"
     android:layout_marginBottom="?actionBarSize">
 
-    <ScrollView
+
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/menu_swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:swipeRefreshLayoutProgressSpinnerBackgroundColor="@color/mammaColorLightYellowTheme"
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,7 +33,7 @@
         android:orientation="vertical">
 
 
-    <com.makaota.mammamskitchenmanager.utils.RAMTextView
+    <com.makaota.mammamskitchenmanager.utils.RAMTextViewBold
         android:id="@+id/tv_scambane"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,9 +49,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
+            android:background="@color/colorOffWhite"
             tools:visibility="visible"/>
 
-        <com.makaota.mammamskitchenmanager.utils.RAMTextView
+        <com.makaota.mammamskitchenmanager.utils.RAMTextViewBold
             android:id="@+id/tv_chips"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -55,9 +68,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
+            android:background="@color/colorOffWhite"
             tools:visibility="visible"/>
 
-        <com.makaota.mammamskitchenmanager.utils.RAMTextView
+        <com.makaota.mammamskitchenmanager.utils.RAMTextViewBold
             android:id="@+id/tv_russian"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -73,9 +87,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
+            android:background="@color/colorOffWhite"
             tools:visibility="visible"/>
 
-        <com.makaota.mammamskitchenmanager.utils.RAMTextView
+        <com.makaota.mammamskitchenmanager.utils.RAMTextViewBold
             android:id="@+id/tv_additional_meals"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -91,9 +106,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
+            android:background="@color/colorOffWhite"
             tools:visibility="visible"/>
 
-        <com.makaota.mammamskitchenmanager.utils.RAMTextView
+        <com.makaota.mammamskitchenmanager.utils.RAMTextViewBold
             android:id="@+id/tv_drinks"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -109,11 +125,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
+            android:background="@color/colorOffWhite"
             tools:visibility="visible"/>
 
     </LinearLayout>
 
     </ScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
 

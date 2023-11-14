@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/app_gradient_color_background"
     tools:context=".ui.activities.SoldProductsDetailsActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -15,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
+        <com.makaota.mammamskitchenmanager.utils.RAMTextView
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -53,7 +54,7 @@
                 android:paddingTop="@dimen/my_order_details_content_lbl_padding"
                 android:paddingBottom="@dimen/my_order_details_content_lbl_padding"
                 android:text="@string/order_details_lbl"
-                android:textColor="@color/colorSecondaryText"
+                android:textColor="@color/colorPrimaryText"
                 android:textSize="@dimen/my_order_details_lbl_textSize" />
 
             <LinearLayout
@@ -174,7 +175,7 @@
                 android:paddingTop="@dimen/my_order_details_content_lbl_padding"
                 android:paddingBottom="@dimen/my_order_details_content_lbl_padding"
                 android:text="@string/checkout_lbl_product_items"
-                android:textColor="@color/colorSecondaryText"
+                android:textColor="@color/colorPrimaryText"
                 android:textSize="@dimen/my_order_details_lbl_textSize" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -200,7 +201,7 @@
                     android:paddingTop="@dimen/my_order_details_content_lbl_padding"
                     android:paddingBottom="@dimen/my_order_details_content_lbl_padding"
                     android:text="@string/user_details_lbl"
-                    android:textColor="@color/colorSecondaryText"
+                    android:textColor="@color/colorPrimaryText"
                     android:textSize="@dimen/my_order_details_lbl_textSize" />
 
                 <com.makaota.mammamskitchenmanager.utils.RAMTextViewBold
@@ -232,7 +233,7 @@
                 android:paddingTop="@dimen/checkout_content_lbl_padding"
                 android:paddingBottom="@dimen/checkout_content_lbl_padding"
                 android:text="@string/checkout_lbl_selected_address"
-                android:textColor="@color/colorSecondaryText"
+                android:textColor="@color/colorPrimaryText"
                 android:textSize="@dimen/checkout_lbl_textSize" />
 
             <LinearLayout
@@ -312,7 +313,7 @@
                 android:paddingTop="@dimen/my_order_details_content_lbl_padding"
                 android:paddingBottom="@dimen/my_order_details_content_lbl_padding"
                 android:text="@string/checkout_lbl_items_receipt"
-                android:textColor="@color/colorSecondaryText"
+                android:textColor="@color/colorPrimaryText"
                 android:textSize="@dimen/my_order_details_lbl_textSize" />
 
             <LinearLayout

@@ -32,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize">
 
-                <TextView
+                <com.makaota.mammamskitchenmanager.utils.RAMTextView
                     android:id="@+id/tv_title"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -99,17 +99,16 @@
 
         <com.makaota.mammamskitchenmanager.utils.RAMButton
             android:id="@+id/btn_logout"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/btn_320dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_email"
-            android:layout_gravity="center"
+            android:layout_centerHorizontal="true"
             android:layout_marginStart="@dimen/settings_button_marginStartEnd"
             android:layout_marginTop="@dimen/settings_button_marginTopBottom"
             android:layout_marginEnd="@dimen/settings_button_marginStartEnd"
             android:layout_marginBottom="@dimen/settings_button_marginTopBottom"
             android:background="@drawable/button_background"
             android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
             android:paddingTop="@dimen/btn_padding"
             android:paddingBottom="@dimen/btn_padding"
             android:text="@string/btn_lbl_logout"

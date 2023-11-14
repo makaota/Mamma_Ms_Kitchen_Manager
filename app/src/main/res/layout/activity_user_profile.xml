@@ -120,7 +120,7 @@
 
             <com.makaota.mammamskitchenmanager.utils.RAMButton
                 android:id="@+id/btn_submit"
-                android:layout_width="match_parent"
+                android:layout_width="@dimen/btn_320dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="16dp"

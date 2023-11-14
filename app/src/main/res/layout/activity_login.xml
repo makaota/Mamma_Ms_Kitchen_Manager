@@ -21,21 +21,10 @@
 
     </FrameLayout>
 
-    <com.makaota.mammamskitchenmanager.utils.RAMTextViewBold
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
-        android:text="@string/title_login"
-        android:textColor="@color/colorPrimaryText"
-        android:textSize="@dimen/title_textSize"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fl_header_image" />
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_email"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxStrokeColor="@color/mammaColorGoldTheme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -45,7 +34,7 @@
         android:textColorHint="@color/colorSecondaryText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_title">
+        app:layout_constraintTop_toBottomOf="@id/fl_header_image">
 
         <com.makaota.mammamskitchenmanager.utils.RAMEditText
             android:id="@+id/et_email"
@@ -61,6 +50,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_password"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxStrokeColor="@color/mammaColorGoldTheme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -91,14 +81,14 @@
         android:foreground="?attr/selectableItemBackground"
         android:padding="@dimen/clickable_text_view_padding"
         android:text="@string/lbl_forgot_password"
-        android:textColor="@color/colorSecondaryText"
+        android:textColor="@color/colorPrimaryText"
         android:textSize="@dimen/forgot_password_textSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/til_password" />
 
     <com.makaota.mammamskitchenmanager.utils.RAMButton
         android:id="@+id/btn_login"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/btn_320dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginStart="16dp"
@@ -119,7 +109,8 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_margin="10dp"
+        android:padding="5dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -128,21 +119,17 @@
 
         <com.makaota.mammamskitchenmanager.utils.RAMTextView
             android:id="@+id/tv_don_t_have_an_account"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:padding="@dimen/clickable_text_view_padding"
             android:text="@string/don_t_have_an_account"
             android:textColor="@color/colorSecondaryText"
             android:textSize="@dimen/lbl_text_view_textSize" />
 
         <com.makaota.mammamskitchenmanager.utils.RAMTextViewBold
             android:id="@+id/tv_register"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:foreground="?attr/selectableItemBackground"
-            android:padding="@dimen/clickable_text_view_padding"
             android:text="@string/register"
             android:textColor="@color/colorSecondaryText"
             android:textSize="@dimen/lbl_text_view_textSize" />

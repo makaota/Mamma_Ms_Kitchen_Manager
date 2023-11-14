@@ -204,5 +204,6 @@
     <string name="lbl_product_category">Product Category</string>
     <string name="title_manage_menu">Manage Menu</string>
     <string name="title_manage_orders">Manage Orders</string>
+    <string name="menu_by_category">Menu by category</string>
 
 </resources>
