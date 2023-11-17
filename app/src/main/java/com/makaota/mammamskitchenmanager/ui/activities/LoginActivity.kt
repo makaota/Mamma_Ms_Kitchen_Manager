@@ -5,10 +5,13 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.messaging.FirebaseMessaging
 import com.makaota.mammamskitchenmanager.R
 import com.makaota.mammamskitchenmanager.databinding.ActivityLoginBinding
 import com.makaota.mammamskitchenmanager.firestore.FirestoreClass
@@ -146,6 +149,22 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         }
         finish()
         // END
+    }
+
+    fun userDeviceTokenListener(userManager: UserManager){
+        // Retrieving the FCM token
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                // Fetching FCM registration token failed
+                return@OnCompleteListener
+            }
+            // fetching the token
+            val token = task.result
+            Log.i("TOKEN", "This user token is -> $token")
+
+            FirestoreClass().writeNewDeviceToken(token,userManager)
+
+        })
     }
 
 }

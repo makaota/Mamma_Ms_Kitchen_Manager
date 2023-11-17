@@ -6,14 +6,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import com.makaota.mammamskitchenmanager.R
+import com.makaota.mammamskitchenmanager.firestore.FirestoreClass
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
@@ -42,8 +44,18 @@ class SplashActivity : AppCompatActivity() {
                 // "Add the code that you want to execute when animation ends")
 
                 Handler(Looper.getMainLooper()).postDelayed({
-                    startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
-                    finish()
+                    try {
+
+                        showProgressDialog(resources.getString(R.string.please_wait))
+                        FirestoreClass().getUserDetails(this@SplashActivity)
+
+                    } catch (e: IllegalArgumentException) {
+
+                        hideProgressDialog()
+                        Log.i(TAG, "error message $e.message")
+                        val intent = Intent(this@SplashActivity, LoginActivity::class.java)
+                        startActivity(intent)
+                    }
                 }, 1000)
             }
 
@@ -52,5 +64,15 @@ class SplashActivity : AppCompatActivity() {
             }
         })
 
+    }
+
+    fun userLoggedInSuccess() {
+
+        hideProgressDialog()
+        // Redirect the user to Main Screen after log in.
+        startActivity(Intent(this@SplashActivity, DashboardActivity::class.java))
+
+        finish()
+        // END
     }
 }

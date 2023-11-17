@@ -23,6 +23,7 @@ import com.makaota.mammamskitchenmanager.ui.activities.MyOrderDetailsActivity
 import com.makaota.mammamskitchenmanager.ui.activities.ProductDetailsActivity
 import com.makaota.mammamskitchenmanager.ui.activities.RegisterActivity
 import com.makaota.mammamskitchenmanager.ui.activities.SettingsActivity
+import com.makaota.mammamskitchenmanager.ui.activities.SplashActivity
 import com.makaota.mammamskitchenmanager.ui.activities.UserProfileActivity
 import com.makaota.mammamskitchenmanager.ui.fragments.ManageMenuFragment
 import com.makaota.mammamskitchenmanager.ui.fragments.ManageOrdersFragment
@@ -121,9 +122,13 @@ class FirestoreClass {
                         is LoginActivity -> {
                             // Call a function of base activity for transferring the result to it.
                             activity.userLoggedInSuccess(userManager)
+                            activity.userDeviceTokenListener(userManager)
                         }
                         is SettingsActivity -> {
                             activity.userDetailsSuccess(userManager)
+                        }
+                        is SplashActivity -> {
+                            activity.userLoggedInSuccess()
                         }
                     }
                     // END
@@ -140,6 +145,10 @@ class FirestoreClass {
                     }
 
                     is SettingsActivity -> {
+                        activity.hideProgressDialog()
+                    }
+
+                    is SplashActivity -> {
                         activity.hideProgressDialog()
                     }
 
@@ -648,6 +657,31 @@ class FirestoreClass {
                     e
                 )
             }
+    }
+
+    /** This code write a new batch to token field in the user collection by checking if
+     * the app has been logged in using the new device
+     * if that is the case then update the new token in the userToken field with the new tokenDevice
+     * this process happens automatically no user intervention
+     */
+    fun writeNewDeviceToken(newToken: String, userManager: UserManager) {
+
+        val writeBatch = mFirestore.batch()
+
+        if (newToken != userManager.userToken) {
+            val tokenHashMap = HashMap<String, Any>()
+            tokenHashMap["userToken"] = newToken
+
+            val documentReference = mFirestore.collection(Constants.USER_MANAGER)
+                .document(getCurrentUserId())
+
+            writeBatch.update(documentReference, tokenHashMap)
+            writeBatch.commit().addOnSuccessListener {
+
+            }.addOnFailureListener {
+
+            }
+        }
     }
 
 }
