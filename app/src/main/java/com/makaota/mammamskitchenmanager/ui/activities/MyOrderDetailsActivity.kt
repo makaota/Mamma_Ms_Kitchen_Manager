@@ -3,6 +3,7 @@ package com.makaota.mammamskitchenmanager.ui.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.UserManager
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -344,6 +346,70 @@ class MyOrderDetailsActivity : BaseActivity(), View.OnClickListener {
     }
 
 
+    private fun sendOrderNotificationToUserManager() {
+
+        val userCollection = FirebaseFirestore.getInstance().collection(Constants.USER_MANAGER)
+        userCollection.document(FirestoreClass().getCurrentUserId()).get()
+            .addOnSuccessListener { documentSnapshot ->
+                if (documentSnapshot.exists()) {
+                    val userManager = documentSnapshot.toObject(com.makaota.mammamskitchenmanager.models.UserManager::class.java)
+                    // Extract user information here
+                    val  mUserDeviceToken = userManager?.userToken.toString()
+
+
+                    var title =""
+                    var message = ""
+
+
+                    when {
+                        mOrderStatus == resources.getString(R.string.order_status_in_process) -> {
+
+                            title = myOrderDetails.title
+                            message = "Your Order has been received Please Confirm the order to " +
+                                    "Continue"
+
+                        }
+
+                        mOrderStatus == resources.getString(R.string.order_status_preparing) -> {
+
+                            title = myOrderDetails.title
+                            message = "Your Order is being prepared check the order number"
+
+                        }
+
+                        mOrderStatus == resources.getString(R.string.order_status_ready_for_collection) -> {
+
+                            title = myOrderDetails.title
+                            message = "Your Order is ready for collection"
+
+
+                        }
+
+                        mOrderStatus == resources.getString(R.string.order_status_delivered) -> {
+
+                            title = myOrderDetails.title
+                            message = "Your Order is delivered thank you very much for using this app to make your order "
+
+                        }
+                    }
+
+                    PushNotification(NotificationData(title,message),mUserDeviceToken).also {
+                        sendOrderNotification(it)
+                        Log.i("MyOrderDetailsActivity", "${title}, $message user Token sent notification = $mUserDeviceToken")
+
+                    }
+
+                    Log.i("TAG","user Token = $mUserDeviceToken")
+                } else {
+                    // User document does not exist
+                }
+            }
+            .addOnFailureListener { exception ->
+                // Error occurred while fetching user data
+            }
+    }
+    // END
+
     private fun sendOrderNotificationToUser() {
         val userCollection = FirebaseFirestore.getInstance().collection(Constants.USER)
 
@@ -364,6 +430,8 @@ class MyOrderDetailsActivity : BaseActivity(), View.OnClickListener {
                             message = "Your Order has been received Please Confirm the order to " +
                                     "Continue"
 
+                            sendOrderNotificationToUserManager()
+
                             val notifications = Notifications(
                                 title = title,
                                 orderDateTime = myOrderDetails.order_datetime,
@@ -382,6 +450,8 @@ class MyOrderDetailsActivity : BaseActivity(), View.OnClickListener {
 
                             title = myOrderDetails.title
                             message = "Your Order is being prepared check the order number"
+
+                            sendOrderNotificationToUserManager()
 
                             val notifications = Notifications(
                                 title = title,
@@ -402,6 +472,8 @@ class MyOrderDetailsActivity : BaseActivity(), View.OnClickListener {
                             title = myOrderDetails.title
                             message = "Your Order is ready for collection"
 
+                            sendOrderNotificationToUserManager()
+
                             val notifications = Notifications(
                                 title = title,
                                 orderDateTime = myOrderDetails.order_datetime,
@@ -420,6 +492,9 @@ class MyOrderDetailsActivity : BaseActivity(), View.OnClickListener {
 
                             title = myOrderDetails.title
                             message = "Your Order is delivered thank you very much for using this app to make your order "
+
+                            sendOrderNotificationToUserManager()
+
 
                             val notifications = Notifications(
                                 title = title,
