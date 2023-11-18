@@ -357,10 +357,6 @@ class MyOrderDetailsActivity : BaseActivity(), View.OnClickListener {
                     val  mUserDeviceToken = userManager?.userToken.toString()
 
 
-                    var title =""
-                    var message = ""
-
-
                     when {
                         mOrderStatus == resources.getString(R.string.order_status_in_process) -> {
 
