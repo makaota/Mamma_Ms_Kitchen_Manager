@@ -85,13 +85,7 @@ class ManageMenuFragment : BaseFragment() {
 
         menuSwipeRefreshLayout.setOnRefreshListener {
             getProductListFromFireStore() // Reload Menu Items
-            FancyToast.makeText(
-                requireContext(),
-                "Menu Refreshed",
-                FancyToast.LENGTH_SHORT,
-                FancyToast.SUCCESS,
-                true
-            ).show()
+
 
             _binding!!.menuSwipeRefreshLayout.isRefreshing = false
         }

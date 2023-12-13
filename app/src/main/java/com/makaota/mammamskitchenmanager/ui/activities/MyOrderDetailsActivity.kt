@@ -531,12 +531,7 @@ class MyOrderDetailsActivity : BaseActivity(), View.OnClickListener {
 
         //  hideProgressDialog()
 
-        FancyToast.makeText(
-            this,
-            "Notifications Info Uploaded successfully.",
-            FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, true
-        )
-            .show()
+
     }
 
     private fun sendOrderNotification(notification: PushNotification) =
