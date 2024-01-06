@@ -25,6 +25,12 @@ This app is intended for the staff and management of Mama M's Kitchen to efficie
 
 **_Sold Product Details:_** View detailed information about sold products.
 
+# Screen Shots
+
+![Screenshot_20240104_144504_com makaota mammamskitchenmanager_284x600_242x512](https://github.com/makaota/Mamma_Ms_Kitchen_Manager/assets/74915165/805545fb-92b7-46a8-ae58-260f58c9987f)
+![Screenshot_20240104_144523_com makaota mammamskitchenmanager_284x600_242x512](https://github.com/makaota/Mamma_Ms_Kitchen_Manager/assets/74915165/b69b4108-8d37-44d2-aec1-c88439eebac0)
+![Screenshot_20240104_144539_com makaota mammamskitchenmanager_284x600_242x512](https://github.com/makaota/Mamma_Ms_Kitchen_Manager/assets/74915165/6e196f36-88da-48b6-a42a-ace13fffbe47)
+
 # Project Structure
 
 # Models
