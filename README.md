@@ -27,18 +27,16 @@ This app is intended for the staff and management of Mama M's Kitchen to efficie
 
 # Screen Shots
 
-
-![Samsung Galaxy S9 Screenshot 9_384x768](https://github.com/makaota/Mamma_Ms_Kitchen_Manager/assets/74915165/dded6380-8c79-4163-b221-3a360adde8a0)
-![Samsung Galaxy S9 Screenshot 8_384x768](https://github.com/makaota/Mamma_Ms_Kitchen_Manager/assets/74915165/c70cc5d3-80e0-4724-a3dc-bcdc0c0eb695)
-![Samsung Galaxy S9 Screenshot 7_384x768](https://github.com/makaota/Mamma_Ms_Kitchen_Manager/assets/74915165/1fefb960-035f-4978-aa27-3c5f61566ca0)
-![Samsung Galaxy S9 Screenshot 6_384x768](https://github.com/makaota/Mamma_Ms_Kitchen_Manager/assets/74915165/69c5e172-336e-47eb-82aa-ba993811834c)
-![Samsung Galaxy S9 Screenshot 5_384x768](https://github.com/makaota/Mamma_Ms_Kitchen_Manager/assets/74915165/416ce603-1ef8-40fd-a8aa-2698e195e4d9)
-![Samsung Galaxy S9 Screenshot 4_384x768](https://github.com/makaota/Mamma_Ms_Kitchen_Manager/assets/74915165/868d4c15-d5df-474e-965c-c00c791e3b79)
-![Samsung Galaxy S9 Screenshot 3_384x768](https://github.com/makaota/Mamma_Ms_Kitchen_Manager/assets/74915165/1ac84a35-9239-476d-bd90-f169b886812d)
-![Samsung Galaxy S9 Screenshot 2_384x768](https://github.com/makaota/Mamma_Ms_Kitchen_Manager/assets/74915165/213c1302-dc75-426c-a380-d7f9e9dc203f)
-![Samsung Galaxy S9 Screenshot 1_384x768](https://github.com/makaota/Mamma_Ms_Kitchen_Manager/assets/74915165/1c113149-7969-4a83-a987-a51c15348490)
 ![Samsung Galaxy S9 Screenshot 0_384x768](https://github.com/makaota/Mamma_Ms_Kitchen_Manager/assets/74915165/9e161dbb-80d6-4209-aed5-815cc5e0b258)
-
+![Samsung Galaxy S9 Screenshot 1_384x768](https://github.com/makaota/Mamma_Ms_Kitchen_Manager/assets/74915165/1c113149-7969-4a83-a987-a51c15348490)
+![Samsung Galaxy S9 Screenshot 2_384x768](https://github.com/makaota/Mamma_Ms_Kitchen_Manager/assets/74915165/213c1302-dc75-426c-a380-d7f9e9dc203f)
+![Samsung Galaxy S9 Screenshot 3_384x768](https://github.com/makaota/Mamma_Ms_Kitchen_Manager/assets/74915165/1ac84a35-9239-476d-bd90-f169b886812d)
+![Samsung Galaxy S9 Screenshot 4_384x768](https://github.com/makaota/Mamma_Ms_Kitchen_Manager/assets/74915165/868d4c15-d5df-474e-965c-c00c791e3b79)
+![Samsung Galaxy S9 Screenshot 5_384x768](https://github.com/makaota/Mamma_Ms_Kitchen_Manager/assets/74915165/416ce603-1ef8-40fd-a8aa-2698e195e4d9)
+![Samsung Galaxy S9 Screenshot 6_384x768](https://github.com/makaota/Mamma_Ms_Kitchen_Manager/assets/74915165/69c5e172-336e-47eb-82aa-ba993811834c)
+![Samsung Galaxy S9 Screenshot 7_384x768](https://github.com/makaota/Mamma_Ms_Kitchen_Manager/assets/74915165/1fefb960-035f-4978-aa27-3c5f61566ca0)
+![Samsung Galaxy S9 Screenshot 8_384x768](https://github.com/makaota/Mamma_Ms_Kitchen_Manager/assets/74915165/c70cc5d3-80e0-4724-a3dc-bcdc0c0eb695)
+![Samsung Galaxy S9 Screenshot 9_384x768](https://github.com/makaota/Mamma_Ms_Kitchen_Manager/assets/74915165/dded6380-8c79-4163-b221-3a360adde8a0)
 
 # Project Structure
 
