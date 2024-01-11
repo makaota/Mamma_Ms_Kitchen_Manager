@@ -37,7 +37,6 @@ This app is intended for the staff and management of Mama M's Kitchen to efficie
 ![Samsung Galaxy S9 Screenshot 7_384x768](https://github.com/makaota/Mamma_Ms_Kitchen_Manager/assets/74915165/1fefb960-035f-4978-aa27-3c5f61566ca0)
 ![Samsung Galaxy S9 Screenshot 8_384x768](https://github.com/makaota/Mamma_Ms_Kitchen_Manager/assets/74915165/c70cc5d3-80e0-4724-a3dc-bcdc0c0eb695)
 ![Samsung Galaxy S9 Screenshot 9_384x768](https://github.com/makaota/Mamma_Ms_Kitchen_Manager/assets/74915165/dded6380-8c79-4163-b221-3a360adde8a0)
-![Samsung Galaxy S9 Screenshot 0_384x768](https://github.com/makaota/Mamma_Ms_Kitchen_Manager/assets/74915165/8b6b7a45-69c3-49eb-b1e8-29ea2421177d)
 ![Samsung Galaxy S9 Screenshot 0_384x768](https://github.com/makaota/Mamma_Ms_Kitchen_Manager/assets/74915165/4d88e5b4-2b1e-4a71-8b77-63650b47898e)
 ![Samsung Galaxy S9 Screenshot 2_384x768](https://github.com/makaota/Mamma_Ms_Kitchen_Manager/assets/74915165/0dc4a7df-c53e-4eca-8461-d6454f73ece4)
 ![Samsung Galaxy S9 Screenshot 3_384x768](https://github.com/makaota/Mamma_Ms_Kitchen_Manager/assets/74915165/e23fab9e-e69a-4cd2-a2e2-2717177a7307)
