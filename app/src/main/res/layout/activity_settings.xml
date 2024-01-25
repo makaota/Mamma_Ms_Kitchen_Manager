@@ -53,7 +53,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/fl_header_bg"
             android:layout_alignParentEnd="true"
-            android:layout_margin="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/item_grey_border_background"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:paddingStart="@dimen/settings_edit_label_marginStartEnd"
@@ -61,6 +64,7 @@
             android:paddingEnd="@dimen/settings_edit_label_marginStartEnd"
             android:paddingBottom="@dimen/settings_edit_label_marginTopBottom"
             android:text="@string/lbl_edit"
+            android:visibility="gone"
             android:textColor="@color/colorSecondaryText"
             android:textSize="@dimen/settings_edit_label_textSize" />
 
