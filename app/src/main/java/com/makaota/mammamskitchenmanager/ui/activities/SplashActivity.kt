@@ -54,6 +54,11 @@ class SplashActivity : BaseActivity() {
                         hideProgressDialog()
                         Log.i(TAG, "error message $e.message")
                         val intent = Intent(this@SplashActivity, LoginActivity::class.java)
+
+                        // Adding the FLAG_ACTIVITY_CLEAR_TASK flag to clear the task
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+
+
                         startActivity(intent)
                     }
                 }, 1000)
@@ -69,9 +74,14 @@ class SplashActivity : BaseActivity() {
     fun userLoggedInSuccess() {
 
         hideProgressDialog()
-        // Redirect the user to Main Screen after log in.
-        startActivity(Intent(this@SplashActivity, DashboardActivity::class.java))
 
+        val intent = Intent(this@SplashActivity, DashboardActivity::class.java)
+
+        // Adding the FLAG_ACTIVITY_CLEAR_TASK flag to clear the task
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+
+
+        startActivity(intent)
         finish()
         // END
     }

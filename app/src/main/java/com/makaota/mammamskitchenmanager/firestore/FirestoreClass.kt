@@ -6,8 +6,11 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.util.Log
 import androidx.fragment.app.Fragment
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -33,7 +36,7 @@ import com.makaota.mammamskitchenmanager.utils.Constants
 class FirestoreClass {
 
     private val mFirestore = FirebaseFirestore.getInstance()
-    private lateinit var documentId : String
+    private lateinit var documentId: String
     private lateinit var generatedId: String
 
     // START
@@ -98,7 +101,7 @@ class FirestoreClass {
                 // Here we have received the document snapshot which is converted into the User Data model object.
                 val userManager = document.toObject(UserManager::class.java)!!
 
-                if (userManager != null && userManager is UserManager){
+                if (userManager != null && userManager is UserManager) {
 
                     // Create an instance of the Android SharedPreferences.
                     // START
@@ -124,16 +127,18 @@ class FirestoreClass {
                             activity.userLoggedInSuccess(userManager)
                             activity.userDeviceTokenListener(userManager)
                         }
+
                         is SettingsActivity -> {
                             activity.userDetailsSuccess(userManager)
                         }
+
                         is SplashActivity -> {
                             activity.userLoggedInSuccess()
                         }
                     }
                     // END
-                }else{
-                    Log.d("TAG","Document object does not match the expected UserManager class")
+                } else {
+                    Log.d("TAG", "Document object does not match the expected UserManager class")
                 }
 
             }
@@ -217,41 +222,56 @@ class FirestoreClass {
      * @param activity The activity is used for identifying the Base activity to which the result is passed.
      * @param userHashMap HashMap of fields which are to be updated.
      */
-    fun updateProductDetails(activity: Activity, userHashMap: HashMap<String, Any>, product: Product) {
-        // Collection Name
+    fun updateProductDetails(
+        activity: Activity,
+        userHashMap: HashMap<String, Any>,
+        product: Product
+    ){
+        // Update the product details in the "products" collection
         mFirestore.collection(Constants.PRODUCTS)
-            // Document ID against which the data to be updated. Here the document id is the product_id.
             .document(product.product_id)
-            // A HashMap of fields which are to be updated.
             .update(userHashMap)
             .addOnSuccessListener {
-
-                // Notify the success result to the base activity.
-                // START
-                // Notify the success result.
+                // Notify the success result to the base activity
                 when (activity) {
                     is AddMenuActivity -> {
-                        // Call a function of base activity for transferring the result to it.
                         activity.productDetailsUpdateSuccess()
                     }
                 }
-                // END
             }
             .addOnFailureListener { e ->
-
                 when (activity) {
                     is AddMenuActivity -> {
-                        // Hide the progress dialog if there is any error. And print the error in log.
                         activity.hideProgressDialog()
                     }
-
                 }
+                Log.e(activity.javaClass.simpleName, "Error while updating the product details.", e)
+            }
 
-                Log.e(
-                    activity.javaClass.simpleName,
-                    "Error while updating the user details.",
-                    e
-                )
+        // Update the product details in the "favorites" collection
+        mFirestore.collection(Constants.FAVORITES)
+            .whereEqualTo("product_id", product.product_id)
+            .get()
+            .addOnSuccessListener { favoritesQuerySnapshot ->
+                for (favoriteDocument in favoritesQuerySnapshot.documents) {
+                    favoriteDocument.reference.update(userHashMap)
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.e(activity.javaClass.simpleName, "Error while updating the favorites details.", e)
+            }
+
+        // Update the product details in the "cart_items" collection
+        mFirestore.collection(Constants.CART_ITEMS)
+            .whereEqualTo("product_id", product.product_id)
+            .get()
+            .addOnSuccessListener { cartQuerySnapshot ->
+                for (cartDocument in cartQuerySnapshot.documents) {
+                    cartDocument.reference.update(userHashMap)
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.e(activity.javaClass.simpleName, "Error while updating the cart items details.", e)
             }
     }
     // END
@@ -326,7 +346,7 @@ class FirestoreClass {
             .addOnSuccessListener {
                 generatedId = it.id
                 productInfo.product_id = generatedId
-                Log.i("ID",productInfo.product_id)
+                Log.i("ID", productInfo.product_id)
 
                 // Here call a function of base activity for transferring the result to it.
                 activity.productUploadSuccess()
@@ -389,36 +409,58 @@ class FirestoreClass {
             }
     }
 
-    // Create a function to delete the product from the cloud firestore.
-    /**
-     * A function to delete the product from the cloud firestore.
-     */
+
+    // Function to delete a product and remove it from "favorites" and "cart" collections if it exists
     fun deleteProduct(fragment: ManageMenuFragment, productId: String) {
 
-        mFirestore.collection(Constants.PRODUCTS)
-            .document(productId)
-            .delete()
-            .addOnSuccessListener {
+        // Remove the product from the "favorites" collection
+        mFirestore.collection(Constants.FAVORITES)
+            .whereEqualTo(Constants.PRODUCT_ID, productId)
+            .get()
+            .addOnSuccessListener { favoritesQuerySnapshot ->
+                for (favoriteDocument in favoritesQuerySnapshot.documents) {
+                    favoriteDocument.reference.delete()
+                }
 
-                // Notify the success result to the base class.
-                // START
-                // Notify the success result to the base class.
-                fragment.productDeleteSuccess()
-                // END
+                // Remove the product from the "cart Items" collection
+                mFirestore.collection(Constants.CART_ITEMS)
+                    .whereEqualTo(Constants.PRODUCT_ID, productId)
+                    .get()
+                    .addOnSuccessListener { cartItemsQuerySnashot ->
+                        for (cartItemsDocument in cartItemsQuerySnashot.documents) {
+                            cartItemsDocument.reference.delete()
+                        }
+
+                        // Finally, delete the product from the main "product" collection
+
+                        mFirestore.collection(Constants.PRODUCTS)
+                            .document(productId)
+                            .delete()
+                            .addOnSuccessListener {
+
+                                // Notify the success result to the base class.
+                                // START
+                                // Notify the success result to the base class.
+                                fragment.productDeleteSuccess()
+                                // END
+                            }
+                            .addOnFailureListener { e ->
+
+                                // Hide the progress dialog if there is an error.
+                                fragment.hideProgressDialog()
+
+                                Log.e(
+                                    fragment.requireActivity().javaClass.simpleName,
+                                    "Error while deleting the product.",
+                                    e
+                                )
+                            }
+
+                    }
             }
-            .addOnFailureListener { e ->
 
-                // Hide the progress dialog if there is an error.
-                fragment.hideProgressDialog()
-
-                Log.e(
-                    fragment.requireActivity().javaClass.simpleName,
-                    "Error while deleting the product.",
-                    e
-                )
-            }
     }
-    // END
+
 
     // Create a function to get the product details based on the product id.
     // START
@@ -477,7 +519,7 @@ class FirestoreClass {
                 // Notify the success result to base class.
                 // START
                 fragment.populateOrdersListInUI(list)
-                Log.i("TAG","Code good "+getCurrentUserId())
+                Log.i("TAG", "Code good " + getCurrentUserId())
                 // END
             }
             .addOnFailureListener { e ->
@@ -489,7 +531,6 @@ class FirestoreClass {
             }
     }
     // END
-
 
 
     // Create a function to update all the required details in the cloud firestore after placing the order successfully.
@@ -505,7 +546,7 @@ class FirestoreClass {
         mFirestore.collection(Constants.ORDERS)
             .whereEqualTo(Constants.USER_ID, userId)
             .get()
-            .addOnSuccessListener { documents->
+            .addOnSuccessListener { documents ->
 
 
                 val orderList: ArrayList<Order> = ArrayList()
@@ -521,8 +562,8 @@ class FirestoreClass {
             }.addOnFailureListener {
 
 
-
-                Log.e(activity.javaClass.simpleName,
+                Log.e(
+                    activity.javaClass.simpleName,
                     "Error while updating all the details after order placed.",
                     it
                 )
@@ -532,7 +573,7 @@ class FirestoreClass {
     }
     // END
 
-    fun addSoldProducts(activity: MyOrderDetailsActivity, orderDetails: Order){
+    fun addSoldProducts(activity: MyOrderDetailsActivity, orderDetails: Order) {
 
 
         // Collection name address.
@@ -637,7 +678,10 @@ class FirestoreClass {
     /**
      * A function to make an entry of the user's notifications in the cloud firestore database.
      */
-    fun uploadNotificationsDetails(activity: MyOrderDetailsActivity, notificationsInfo: Notifications) {
+    fun uploadNotificationsDetails(
+        activity: MyOrderDetailsActivity,
+        notificationsInfo: Notifications
+    ) {
 
         mFirestore.collection(Constants.NOTIFICATIONS)
             //.document()
@@ -646,7 +690,7 @@ class FirestoreClass {
             .addOnSuccessListener {
 
                 // Here call a function of base activity for transferring the result to it.
-             activity.notificationsUploadSuccess()
+                activity.notificationsUploadSuccess()
 
             }
             .addOnFailureListener { e ->
