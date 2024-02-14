@@ -96,9 +96,7 @@
             android:name=".ui.activities.DashboardActivity"
             android:exported="false"
             android:label="@string/title_activity_dashboard" />
-        <activity
-            android:name=".ui.activities.MainActivity"
-            android:exported="true"></activity>
+
     </application>
 
 </manifest>

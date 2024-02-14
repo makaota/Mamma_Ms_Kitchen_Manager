@@ -15,6 +15,8 @@ class DashboardActivity  : BaseActivity() {
 
     private lateinit var binding: ActivityDashboardBinding
 
+    private lateinit var navView: BottomNavigationView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -30,7 +32,7 @@ class DashboardActivity  : BaseActivity() {
         )
         // END
 
-        val navView: BottomNavigationView = binding.navView
+        navView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_dashboard)
         // Passing each menu ID as a set of Ids because each
@@ -43,7 +45,6 @@ class DashboardActivity  : BaseActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-     //   navView.itemIconTintList = null
     }
 
     override fun onBackPressed() {
