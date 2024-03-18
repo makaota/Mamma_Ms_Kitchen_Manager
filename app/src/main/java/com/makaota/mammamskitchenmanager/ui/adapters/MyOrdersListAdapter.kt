@@ -5,8 +5,10 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.makaota.mammamskitchenmanager.databinding.ItemListLayoutBinding
+import com.makaota.mammamskitchenmanager.R
+import com.makaota.mammamskitchenmanager.databinding.OrderListLayoutBinding
 import com.makaota.mammamskitchenmanager.models.Order
 import com.makaota.mammamskitchenmanager.ui.activities.MyOrderDetailsActivity
 import com.makaota.mammamskitchenmanager.utils.Constants
@@ -28,7 +30,7 @@ open class MyOrdersListAdapter(
      * {@link ViewHolder} and initializes some private fields to be used by RecyclerView.
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val binding = ItemListLayoutBinding.inflate(LayoutInflater.from(context),parent, false)
+        val binding = OrderListLayoutBinding.inflate(LayoutInflater.from(context),parent, false)
         return MyViewHolder(binding)
     }
 
@@ -57,6 +59,52 @@ open class MyOrdersListAdapter(
 
                 binding.ibDeleteProduct.visibility = View.GONE
 
+                if (model.orderStatus == "Pending"){
+                    binding.tvUpdateStatus.text = "Pending"
+                    binding.tvUpdateStatus.setTextColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.colorAccent
+                        )
+                    )
+
+                }else if(model.orderStatus == "In Process"){
+                    binding.tvUpdateStatus.text = "In Process"
+                    binding.tvUpdateStatus.setTextColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.colorOrderStatusInProcess
+                        )
+                    )
+
+                }else if (model.orderStatus == "Preparing"){
+                    binding.tvUpdateStatus.text = "Preparing"
+                    binding.tvUpdateStatus.setTextColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.colorOrderStatusPreparing
+                        )
+                    )
+
+                }else if(model.orderStatus == "Ready For Collection"){
+                    binding.tvUpdateStatus.text = "Ready For Collection"
+                    binding.tvUpdateStatus.setTextColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.colorOrderStatusReadyForCollection
+                        )
+                    )
+
+                }else if(model.orderStatus == "Delivered"){
+                    binding.tvUpdateStatus.text = "Delivered"
+                    binding.tvUpdateStatus.setTextColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.colorOrderStatusDelivered
+                        )
+                    )
+                }
+
                 // Assign the click event to my order item and launch and pass the details to the detail page through intent.
                 // START
                 holder.itemView.setOnClickListener {
@@ -78,6 +126,6 @@ open class MyOrdersListAdapter(
     /**
      * A ViewHolder describes an item view and metadata about its place within the RecyclerView.
      */
-    inner class MyViewHolder(val binding: ItemListLayoutBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class MyViewHolder(val binding: OrderListLayoutBinding) : RecyclerView.ViewHolder(binding.root)
 }
 // END

@@ -53,4 +53,18 @@
         android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@+id/RAMTextView" />
 
+    <com.makaota.mammamskitchenmanager.utils.RAMTextViewBold
+        android:id="@+id/txt_ope_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:text="Store Closed"
+        android:textSize="35sp"
+        android:textColor="@color/colorThemePink"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_open_close" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

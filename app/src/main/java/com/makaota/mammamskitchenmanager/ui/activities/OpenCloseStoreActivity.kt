@@ -1,5 +1,6 @@
 package com.makaota.mammamskitchenmanager.ui.activities
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -38,16 +39,19 @@ class OpenCloseStoreActivity : BaseActivity() {
         setupActionBar()
 
 
-
         mOpenCloseStore = OpenCloseStore(false)
 
      //   openCloseStoreCollection(mOpenCloseStore)
 
+
         getOpenCloseStoreInfo()
+
+
 
         binding.btnOpenClose.setOnClickListener {
 
             if (binding.btnOpenClose.text == "Open Store"){
+
 
 
                 showProgressDialog(resources.getString(R.string.please_wait))
@@ -76,12 +80,17 @@ class OpenCloseStoreActivity : BaseActivity() {
                 hideProgressDialog()
                // onBackPressed()
 
+
+
+                binding.txtOpeClose.text = "Store Closed"
+                binding.txtOpeClose.setTextColor(getColor(R.color.colorThemePink))
                 Toast.makeText(this,"Store is Open",Toast.LENGTH_SHORT).show()
 
                 binding.btnOpenClose.text = "Close Store"
 
 
             }else{
+
 
                 showProgressDialog(resources.getString(R.string.please_wait))
 
@@ -109,7 +118,8 @@ class OpenCloseStoreActivity : BaseActivity() {
                 hideProgressDialog()
                 // onBackPressed()
 
-
+                binding.txtOpeClose.text = "Store Open"
+                binding.txtOpeClose.setTextColor(getColor(R.color.colorPrimaryText))
                 Toast.makeText(this,"Store is Closed",Toast.LENGTH_SHORT).show()
 
                 binding.btnOpenClose.text = "Open Store"
@@ -156,9 +166,14 @@ class OpenCloseStoreActivity : BaseActivity() {
 
                 if (!openCloseStore.isStoreOpen){
                     binding.btnOpenClose.text = "Open Store"
+                    binding.txtOpeClose.text = "Store Closed"
+                    binding.txtOpeClose.setTextColor(getColor(R.color.colorThemePink))
                 }
                 else{
                     binding.btnOpenClose.text = "Close Store"
+                    binding.txtOpeClose.text = "Store Open"
+                    binding.txtOpeClose.setTextColor(getColor(R.color.colorPrimaryText))
+
                 }
 
             }
