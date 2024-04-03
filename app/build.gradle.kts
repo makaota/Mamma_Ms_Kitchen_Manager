@@ -58,7 +58,7 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     // Firebase
-    implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
+    implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
 
     // Declare the dependency for the Cloud Firestore library
     // When using the BoM, you don't specify versions in Firebase library dependencies
@@ -71,7 +71,7 @@ dependencies {
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation ("com.google.firebase:firebase-storage-ktx")
 
-    implementation("com.google.firebase:firebase-messaging-ktx:23.4.0")
+    implementation("com.google.firebase:firebase-messaging-ktx:23.4.1")
 
     // Fancy toast messages
     implementation("io.github.shashank02051997:FancyToast:2.0.2")
@@ -81,8 +81,8 @@ dependencies {
     annotationProcessor("com.github.bumptech.glide:compiler:4.13.0")
 
     // Coroutines
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.6.2")
